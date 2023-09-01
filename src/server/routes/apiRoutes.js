@@ -4,6 +4,14 @@ const router = express.Router();
 // Import models here
 const BlogPost = require("../models/BlogPost");
 
+router.get("/", (req, res) => {
+    res.send("API index");
+})
+
+router.get("/test", (req, res) => {
+    res.send("Test route working");
+})
+
 // Define routes
 router.get("/posts", (req, res) => {
     // Fetch blog posts from the database and send as JSON response
