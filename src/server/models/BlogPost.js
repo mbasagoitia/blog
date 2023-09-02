@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 
 const blogPostSchema = new mongoose.Schema({
     title: String,
-    content: String
-    // other fields such as author, createdAt
+    description: String,
+    content: String,
+    createdAt: Date,
+    tags: Array
 })
 
-const BlogPost = mongoose.model("BlogPost", blogPostSchema)
+const BlogPost = mongoose.model("BlogPost", blogPostSchema);
 
 module.exports = BlogPost;

@@ -8,6 +8,8 @@ const cors = require("cors");
 // const { createProxyMiddleware } = require("http-proxy-middleware");
 const errorHandler = require("./middlewares/errorHandler");
 
+const { BlogPost } = require("./models/BlogPost");
+
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const apiRoutes = require("./routes/apiRoutes");
@@ -27,14 +29,23 @@ app.use(express.static("public"));
 
 app.use(express.static(join(__dirname, "../client/build")));
 
-// Set up middleware, authentication, etc.
-
 // Connect to database
 
-// Test route
+const mongooseOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+}
+
+mongoose.connect('mongodb://127.0.0.1:27017/blog', mongooseOptions)
+.then(() => {
+  console.log("Connected to database");
+})
+.catch((err) => {
+  console.error(err);
+})
 
 // Use API routes
-
 
 app.get("/api/get-admin-token", (req, res) => {
   const adminToken = process.env.ADMIN_TOKEN;

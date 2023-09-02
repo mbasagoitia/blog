@@ -1,4 +1,9 @@
 import { useState, useEffect } from "react";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Navigation from "../components/Navbar";
 
 function Home() {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -24,11 +29,30 @@ function Home() {
 
     return (
         <>
-        <h1>Welcome!</h1>
-        <h2>{isAdmin ? "admin" : "not admin"}</h2>
-        {blogPosts.map((post) => {
+        <Container fluid>
+            <Row>
+                <Col>
+                <h1 className="text-center">CodeCrafted Chronicles</h1>
+                <h2 className="text-center">{isAdmin ? "admin" : "not admin"}</h2>
+                </Col>
+            </Row>
+            <Navigation />
+            { isAdmin? (
+                <Row>
+                    <Col>
+                    {/* Routes you to CreatePost.jsx */}
+                    <Button>Create New Post</Button>
+                    </Col>
+                </Row>    
+            ) : null }
+            <Row>
+                <Col>
+                {blogPosts.map((post) => {
             // Render each blog post
-        })}
+                })}
+                </Col>
+            </Row>
+        </Container>
         </>
     )
 }

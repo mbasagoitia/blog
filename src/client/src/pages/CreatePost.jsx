@@ -5,7 +5,7 @@ function CreatePost() {
     const [content, setContent] = useState("");
     // Add description?
     const handleCreatePost = () => {
-        // Send aPI request to createa new blog post
+        // Send aPI request to create a new blog post
     }
 
     return (
