@@ -4,8 +4,8 @@ yarn-error.log
 package-lock.json
 
 .env
-/client/.env
-/server/.env
+/src/client/.env
+/src/server/.env
 
 /.idea
 

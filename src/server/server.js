@@ -1,13 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const path = require("path");
+const dotenv = require("dotenv");
 const { join } = require("path");
 const morgan = require("morgan");
 const cors = require("cors");
-// const config = require("./config");
-const { createProxyMiddleware } = require("http-proxy-middleware");
+// const { createProxyMiddleware } = require("http-proxy-middleware");
 const errorHandler = require("./middlewares/errorHandler");
+
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const apiRoutes = require("./routes/apiRoutes");
 
@@ -33,6 +34,12 @@ app.use(express.static(join(__dirname, "../client/build")));
 // Test route
 
 // Use API routes
+
+
+app.get("/api/get-admin-token", (req, res) => {
+  const adminToken = process.env.ADMIN_TOKEN;
+  res.json({ adminToken });
+})
 
 app.use("/api", apiRoutes);
 
