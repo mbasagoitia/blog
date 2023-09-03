@@ -8,6 +8,10 @@ const cors = require("cors");
 // const { createProxyMiddleware } = require("http-proxy-middleware");
 const errorHandler = require("./middlewares/errorHandler");
 
+dotenv.config();
+
+const adminToken = process.env.ADMIN_TOKEN;
+
 const { BlogPost } = require("./models/BlogPost");
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -33,8 +37,7 @@ app.use(express.static(join(__dirname, "../client/build")));
 
 const mongooseOptions = {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
+  useUnifiedTopology: true
 }
 
 mongoose.connect('mongodb://127.0.0.1:27017/blog', mongooseOptions)

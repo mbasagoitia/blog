@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
+dotenv.config();
+
+const adminToken = process.env.ADMIN_TOKEN;
 // Import models here
 const BlogPost = require("../models/BlogPost");
 
@@ -12,14 +17,37 @@ router.get("/test", (req, res) => {
     res.send("Test route working");
 })
 
-// Define routes
-router.get("/posts", (req, res) => {
-    // Fetch blog posts from the database and send as JSON response
+router.get("/posts", async (req, res) => {
+    try {
+        const blogPosts = await BlogPost.find().exec();
+        res.status(200).json(blogPosts);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occured while fetching blog posts" })
+    }
 })
 
-router.post("/posts", (req, res) => {
-    // Create a new blog post in the database based on req.body data
-})
+router.post("/new", async (req, res) => {
+    try {
+        const token = req.query.token;
+        if (token !== adminToken) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+
+        const { title, description, createdAt, tags } = req.body;
+        const newBlogPost = new BlogPost({
+            title,
+            description,
+            createdAt,
+            tags
+        });
+        const savedPost = await newBlogPost.save();
+        res.status(201).json(savedPost);
+    } catch (err) {
+        console.error("Error creating blog post:", err);
+        res.status(500).json({ error: "An error occurred while creating the blog post" });
+    }
+});
 
 // More routes for editing and deleting posts (protected by isAdmin middleware)
 
