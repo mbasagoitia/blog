@@ -8,6 +8,10 @@ import BlogPost from './pages/BlogPost';
 
 function App() {
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const token = urlParams.get("token");
+
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -15,8 +19,7 @@ function App() {
     .then((res) => res.json())
     .then((data) => {
         const adminToken = data.adminToken;
-        const hasAdminAccess = window.location.href.includes(adminToken);
-        if (hasAdminAccess) {
+        if (adminToken === token) {
             setIsAdmin(true);
         }
     })
@@ -28,10 +31,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home isAdmin={isAdmin} />} />
-        <Route path="/new" element={<CreatePost isAdmin={isAdmin} />} />
-        <Route path="/update/:id" element={<UpdatePost isAdmin={isAdmin} />} />
-        <Route path="/:id" element={<BlogPost isAdmin={isAdmin} />} />
+        <Route path="/" element={<Home isAdmin={isAdmin} adminToken={token} />} />
+        <Route path="/new" element={<CreatePost isAdmin={isAdmin} adminToken={token} />} />
+        <Route path="/update/:id" element={<UpdatePost isAdmin={isAdmin} adminToken={token} />} />
+        <Route path="/:id" element={<BlogPost isAdmin={isAdmin} adminToken={token} />} />
       </Routes>
     </BrowserRouter>
   );

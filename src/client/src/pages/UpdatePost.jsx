@@ -4,7 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
 
-function UpdatePost() {
+function UpdatePost({ isAdmin, adminToken }) {
+
     const [post, setPost] = useState({});
     const { id } = useParams();
 
@@ -12,12 +13,6 @@ function UpdatePost() {
     const [description, setDescription] = useState("");
     const [content, setContent] = useState("");
     const [tags, setTags] = useState("");
-
-    // State isn't working
-
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const token = searchParams.get("token");
 
     useEffect(() => {
         const apiUrl = `http://localhost:8080/api/singlepost/${id}`;
@@ -52,7 +47,7 @@ function UpdatePost() {
             tags: tags
         };
 
-        fetch(`${apiUrl}?token=${token}`, {
+        fetch(`${apiUrl}?token=${adminToken}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedData)

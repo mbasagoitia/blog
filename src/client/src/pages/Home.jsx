@@ -4,13 +4,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Navigation from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PostCard from "../components/Card";
 
 function Home({ isAdmin }) {
 
-// problems here
-    
     const [blogPosts, setBlogPosts] = useState([]);
     
     useEffect(() => {
@@ -37,12 +35,11 @@ function Home({ isAdmin }) {
         <Container fluid>
             <Row>
                 <Col>
-                <h1 className="text-center">CodeCrafted Chronicles</h1>
-                <h2 className="text-center">{isAdmin ? "admin" : "not admin"}</h2>
+                <h1 className="text-center my-4">CodeCrafted Chronicles</h1>
                 </Col>
             </Row>
             <Navigation />
-            { isAdmin ? (
+            { isAdmin? (
                 <Row>
                     <Col>
                         <Link to={"/new"} className="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">

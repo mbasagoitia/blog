@@ -8,16 +8,12 @@ import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 import BackBtn from "../components/BackBtn";
 
-function CreatePost() {
+function CreatePost({ isAdmin, adminToken }) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [content, setContent] = useState("");
     const [tags, setTags] = useState([]);
-
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const token = searchParams.get("token");
 
     const handleCreatePost = () => {
         const apiUrl = "http://localhost:8080/api/new";
@@ -28,9 +24,8 @@ function CreatePost() {
             createdAt: Date.now(),
             tags: tags.split(", ")
         };
-        console.log(postData);
 
-        fetch(`${apiUrl}?token=${token}`, {
+        fetch(`${apiUrl}?token=${adminToken}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postData)
