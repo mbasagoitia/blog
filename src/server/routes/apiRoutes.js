@@ -13,10 +13,6 @@ router.get("/", (req, res) => {
     res.send("API index");
 })
 
-router.get("/test", (req, res) => {
-    res.send("Test route working");
-})
-
 router.get("/posts", async (req, res) => {
     try {
         const blogPosts = await BlogPost.find().sort({ createdAt: "desc" });
@@ -24,6 +20,20 @@ router.get("/posts", async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "An error occured while fetching blog posts" })
+    }
+})
+
+router.get("/singlepost/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const post = await BlogPost.findById(id).exec();
+        if (!post) {
+            return res.status(404).json({ error: "Blog post not found" });
+        }
+        res.status(200).json(post);
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred while fetching single post" })
     }
 })
 

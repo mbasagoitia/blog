@@ -33,7 +33,6 @@ function Home() {
                 if (res.ok) {
                     const data = await res.json();
                     setBlogPosts(data);
-                    console.log(data);
                 } else {
                     console.error("Error fetching blog posts");
                 }
@@ -72,8 +71,11 @@ function Home() {
                     return <li key={post._id}>
                             <h2>{post.title}</h2>
                             <p>{post.description}</p>
-                            <p>{post.content}</p>
                             <p>{post.tags.join(", ")}</p>
+                            <Link to={`/${post._id}`} className="btn btn-primary">Read More</Link>
+                            {isAdmin ? (
+                                <Button>Update</Button>
+                            ): null}
                             </li>
                     })}
                 </ul>
