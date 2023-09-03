@@ -2,10 +2,11 @@ import './App.css';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import BlogPost from './pages/BlogPost';
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>

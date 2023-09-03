@@ -6,8 +6,10 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
+import BackBtn from "../components/BackBtn";
 
 function CreatePost() {
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [content, setContent] = useState("");
@@ -65,7 +67,7 @@ function CreatePost() {
                 <Form.Control type="text" placeholder="Ex: react, coding challenges, career" value={tags} onChange={ (e) => setTags(e.target.value) } required />
             </Form.Group>
             </Form>
-            <Link className="btn btn-primary" to="/">Cancel</Link>
+            <BackBtn />
             <Button onClick={handleCreatePost}>Save</Button>
         </Container>
         </>

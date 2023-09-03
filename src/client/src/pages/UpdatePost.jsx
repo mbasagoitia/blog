@@ -8,13 +8,12 @@ function UpdatePost() {
     const [post, setPost] = useState({});
     const { id } = useParams();
 
-    const [title, setTitle] = useState(post.title);
-    const [description, setDescription] = useState(post.description);
-    const [content, setContent] = useState(post.content);
-    const [tags, setTags] = useState(post.tags);
-    
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [content, setContent] = useState("");
+    const [tags, setTags] = useState("");
+
     // State isn't working
-    console.log(title, description, content, tags);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -28,6 +27,10 @@ function UpdatePost() {
                 if (res.ok) {
                     const data = await res.json();
                     setPost(data);
+                    setTitle(data.title);
+                    setDescription(data.description);
+                    setContent(data.content);
+                    setTags(data.tags);
                 } else {
                     console.error("Error fetching single post");
                 }
@@ -40,15 +43,14 @@ function UpdatePost() {
 
     const handleUpdatePost = (id) => {
         const apiUrl = `http://localhost:8080/api/update/${id}`;
+
         const updatedData = {
             title: title,
             description: description,
             content: content,
             createdAt: Date.now(),
-            tags: tags.split(", ")
+            tags: tags
         };
-
-        console.log(updatedData);
 
         fetch(`${apiUrl}?token=${token}`, {
             method: "PUT",
@@ -88,7 +90,7 @@ function UpdatePost() {
             </Form.Group>
             </Form>
             <Link className="btn btn-primary" to="/">Cancel</Link>
-            <Button onClick={handleUpdatePost}>Save</Button>
+            <Button onClick={() => handleUpdatePost(id)}>Save</Button>
         </Container>
         </>
     )   

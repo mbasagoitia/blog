@@ -4,10 +4,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Navigation from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import PostCard from "../components/Card";
 
 function Home() {
+
+    const history = useHistory();
+// problems here
+    const param1 = null;
     const [isAdmin, setIsAdmin] = useState(false);
 
     fetch("http://localhost:8080/api/get-admin-token")
@@ -66,7 +70,7 @@ function Home() {
             ) : null }
             <Row>
                 <Col>
-                <h1>Posts</h1>
+                <h1 className="text-center">All Posts</h1>
                 <ul>
                 {blogPosts.map((post) => {
                     return <li key={post._id}>

@@ -22,6 +22,11 @@
 
 }
 
+.btn-secondary {
+  background-color: #007B7F;
+  border: none;
+}
+
 nav {
   background: #007B7F;
 }
