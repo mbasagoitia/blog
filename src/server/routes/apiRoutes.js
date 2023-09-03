@@ -19,7 +19,7 @@ router.get("/test", (req, res) => {
 
 router.get("/posts", async (req, res) => {
     try {
-        const blogPosts = await BlogPost.find().exec();
+        const blogPosts = await BlogPost.find().sort({ createdAt: "desc" });
         res.status(200).json(blogPosts);
     } catch (err) {
         console.error(err);
@@ -34,10 +34,11 @@ router.post("/new", async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
 
-        const { title, description, createdAt, tags } = req.body;
+        const { title, description, content, createdAt, tags } = req.body;
         const newBlogPost = new BlogPost({
             title,
             description,
+            content,
             createdAt,
             tags
         });

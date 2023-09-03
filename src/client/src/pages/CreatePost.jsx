@@ -11,6 +11,7 @@ function CreatePost() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [content, setContent] = useState("");
+    const [tags, setTags] = useState([]);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -19,13 +20,13 @@ function CreatePost() {
     const handleCreatePost = () => {
         const apiUrl = "http://localhost:8080/api/new";
         const postData = {
-            title,
-            description,
-            content,
+            title: title,
+            description: description,
+            content: content,
             createdAt: Date.now(),
-            // make this better
-            tags: []
+            tags: tags.split(", ")
         };
+        console.log(postData);
 
         fetch(`${apiUrl}?token=${token}`, {
             method: "POST",
@@ -49,19 +50,19 @@ function CreatePost() {
             <Form>
             <Form.Group className="mb-3" controlId="Title">
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="text" placeholder="Title" value={title} onChange={ (e) => setTitle(e.target.value) } />
+                <Form.Control type="text" placeholder="Title" value={title} onChange={ (e) => setTitle(e.target.value) } required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="description">
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="text" placeholder="Description" value={description} onChange={ (e) => setDescription(e.target.value) }/>
+                <Form.Control type="text" placeholder="Description" value={description} onChange={ (e) => setDescription(e.target.value) } required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="content">
                 <Form.Label>Content</Form.Label>
-                <Form.Control as="textarea" rows={3} value={content} onChange={ (e) => {
-                    console.log(e.target.value);
-                    setContent(e.target.value);
-                    console.log(content);
-                    }} />
+                <Form.Control as="textarea" rows={3} value={content} onChange={ (e) => { setContent(e.target.value)} } required />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="tags">
+                <Form.Label>Tags</Form.Label>
+                <Form.Control type="text" placeholder="Ex: react, coding challenges, career" value={tags} onChange={ (e) => setTags(e.target.value) } required />
             </Form.Group>
             </Form>
             <Link className="btn btn-primary" to="/">Cancel</Link>

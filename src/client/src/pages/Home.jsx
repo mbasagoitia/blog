@@ -73,6 +73,7 @@ function Home() {
                             <h2>{post.title}</h2>
                             <p>{post.description}</p>
                             <p>{post.content}</p>
+                            <p>{post.tags.join(", ")}</p>
                             </li>
                     })}
                 </ul>
