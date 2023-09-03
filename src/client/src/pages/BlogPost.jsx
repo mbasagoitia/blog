@@ -10,7 +10,6 @@ function BlogPost() {
             try {
                 const res = await fetch(apiUrl);
                 if (res.ok) {
-                    //its saying this isnt json
                     const data = await res.json();
                     setPost(data);
                 } else {

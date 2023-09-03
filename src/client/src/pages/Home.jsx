@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Navigation from "../components/Navbar";
 import { Link } from "react-router-dom";
+import PostCard from "../components/Card";
 
 function Home() {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -69,13 +70,7 @@ function Home() {
                 <ul>
                 {blogPosts.map((post) => {
                     return <li key={post._id}>
-                            <h2>{post.title}</h2>
-                            <p>{post.description}</p>
-                            <p>{post.tags.join(", ")}</p>
-                            <Link to={`/${post._id}`} className="btn btn-primary">Read More</Link>
-                            {isAdmin ? (
-                                <Button>Update</Button>
-                            ): null}
+                            <PostCard post={post} isAdmin={isAdmin} />
                             </li>
                     })}
                 </ul>

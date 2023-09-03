@@ -60,6 +60,27 @@ router.post("/new", async (req, res) => {
     }
 });
 
+router.put("/update/:id", async (req, res) => {
+    try {
+        const token = req.query.token;
+        if (token !== adminToken) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        const id = req.params.id;
+        const updatedData = req.body;
+        const updatedPost = await BlogPost.findByIdAndUpdate(id, updatedData, {
+            new: true,
+        }).exec();
+        if (!updatedPost) {
+            return res.status(404).json({ error: "Blog post not found" })
+        }
+        res.status(200).json(updatedPost);
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ err: "An error occurred while updating the blog post" })
+    }
+})
+
 // More routes for editing and deleting posts (protected by isAdmin middleware)
 
 module.exports = router;
