@@ -48,7 +48,7 @@ function UpdatePost({ isAdmin, adminToken }) {
             tags: tags
         };
 
-        fetch(`${apiUrl}?token=${adminToken}`, {
+        fetch(`${apiUrl}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedData)

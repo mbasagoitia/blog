@@ -7,7 +7,7 @@ import Navigation from "../components/Navbar";
 import { Link, useParams } from "react-router-dom";
 import PostCard from "../components/Card";
 
-function Home({ isAdmin }) {
+function Home() {
 
     const [blogPosts, setBlogPosts] = useState([]);
     

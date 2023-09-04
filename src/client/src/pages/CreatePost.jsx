@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 import BackBtn from "../components/BackBtn";
 
-function CreatePost({ isAdmin, adminToken }) {
+function CreatePost() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -25,7 +25,7 @@ function CreatePost({ isAdmin, adminToken }) {
             tags: tags.split(", ")
         };
 
-        fetch(`${apiUrl}?token=${adminToken}`, {
+        fetch(`${apiUrl}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postData)

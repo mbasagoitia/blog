@@ -41,11 +41,6 @@ router.get("/singlepost/:id", async (req, res) => {
 
 router.post("/new", verifyToken, async (req, res) => {
     try {
-        const token = req.query.token;
-        if (token !== adminToken) {
-            return res.status(401).json({ error: "Unauthorized" });
-        }
-
         const { title, description, content, createdAt, tags } = req.body;
         const newBlogPost = new BlogPost({
             title,
@@ -64,10 +59,6 @@ router.post("/new", verifyToken, async (req, res) => {
 
 router.put("/update/:id", verifyToken, async (req, res) => {
     try {
-        const token = req.query.token;
-        if (token !== adminToken) {
-            return res.status(401).json({ error: "Unauthorized" });
-        }
         const id = req.params.id;
         const updatedData = req.body;
         const updatedPost = await BlogPost.findByIdAndUpdate(id, updatedData, {
@@ -85,10 +76,6 @@ router.put("/update/:id", verifyToken, async (req, res) => {
 
 router.delete("/delete/:id", verifyToken, async (req, res) => {
     try {
-        const token = req.query.token;
-        if (token !== adminToken) {
-            return res.status(401).json({ error: "Unauthorized" });
-        }
         const id = req.params.id;
         const deletedPost = await BlogPost.findByIdAndDelete({ _id: id });
         if (!deletedPost) {

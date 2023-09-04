@@ -5,7 +5,7 @@ function DeleteBtn ({ id, adminToken }) {
     const handleDeletePost = (id) => {
         const apiUrl = `http://localhost:8080/api/delete/${id}`;
         
-        fetch(`${apiUrl}?token=${adminToken}`, {
+        fetch(`${apiUrl}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         })

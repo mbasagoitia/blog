@@ -76,11 +76,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/blog', mongooseOptions)
 
 // Use API routes
 
-app.get("/api/get-admin-token", (req, res) => {
-  const adminToken = process.env.ADMIN_TOKEN;
-  res.json({ adminToken });
-})
-
 app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
 
