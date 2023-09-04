@@ -2,12 +2,14 @@ import Button from "react-bootstrap/esm/Button";
 
 function DeleteBtn ({ id }) {
 
+    const token = localStorage.getItem("token");
+
     const handleDeletePost = (id) => {
         const apiUrl = `http://localhost:8080/api/delete/${id}`;
         
-        fetch(`${apiUrl}`, {
+        fetch(apiUrl, {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Authorization": token },
         })
         .then((res) => {
             if (res.ok) {

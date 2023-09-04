@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Navigation from "../components/Navbar";
 import { Link, useParams } from "react-router-dom";
 import PostCard from "../components/Card";
+import LogoutBtn from "../components/LogOutBtn";
 
 function Home() {
 
@@ -53,6 +54,7 @@ function Home() {
                 <div>
                     <Link to="/login" className="btn btn-primary">Login</Link>
                     <Link to="/register" className="btn btn-secondary">Register</Link>
+                    <LogoutBtn />
                 </div>
                 </div>
                 <ul>

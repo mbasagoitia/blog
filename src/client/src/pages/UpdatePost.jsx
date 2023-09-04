@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
 import DeleteBtn from "../components/DeleteBtn";
 
 function UpdatePost({ adminToken }) {
+
+    const token = localStorage.getItem("token");
 
     const [post, setPost] = useState({});
     const { id } = useParams();
@@ -48,9 +50,9 @@ function UpdatePost({ adminToken }) {
             tags: tags
         };
 
-        fetch(`${apiUrl}`, {
+        fetch(apiUrl, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Authorization": token },
             body: JSON.stringify(updatedData)
         })
         .then((res) => {

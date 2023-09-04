@@ -7,8 +7,22 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BlogPost from './pages/BlogPost';
 import Login from "./pages/Login";
 import RegistrationForm from './pages/RegistrationForm';
+import jwtDecode from "jwt-decode";
 
 function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect (() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUserRole(decodedToken.role);
+      console.log(userRole);
+    }
+    // possible problems here?
+  }, [isLoggedIn, userRole])
 
   return (
     <BrowserRouter>
@@ -16,7 +30,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<CreatePost />} />
         <Route path="/update/:id" element={<UpdatePost />} />
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>}></Route>
         <Route path="/register" element={<RegistrationForm />}></Route>
         <Route path="/:id" element={<BlogPost />} />
       </Routes>

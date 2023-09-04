@@ -76,19 +76,18 @@ router.put("/update/:id", verifyToken, async (req, res) => {
 
 router.delete("/delete/:id", verifyToken, async (req, res) => {
     try {
-        const id = req.params.id;
-        const deletedPost = await BlogPost.findByIdAndDelete({ _id: id });
+        if (req.userRole === "admin") {
+            const id = req.params.id;
+            const deletedPost = await BlogPost.findByIdAndDelete({ _id: id });
         if (!deletedPost) {
             return res.status(404).json({ error: "Post not found" });
         }
         res.status(200).json({ message: "Post deleted successfully" });
-
+        } 
     } catch(err) {
         console.error(err);
         res.status(500).json({ err: "An error occurred while deleting the blog post" })
     }
 })
-
-// More routes for editing and deleting posts (protected by isAdmin middleware)
 
 module.exports = router;

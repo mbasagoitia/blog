@@ -10,6 +10,8 @@ import BackBtn from "../components/BackBtn";
 
 function CreatePost() {
 
+    const token = localStorage.getItem("token");
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [content, setContent] = useState("");
@@ -25,9 +27,9 @@ function CreatePost() {
             tags: tags.split(", ")
         };
 
-        fetch(`${apiUrl}`, {
+        fetch(apiUrl, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Authorization": token },
             body: JSON.stringify(postData)
         })
         .then((res) => {

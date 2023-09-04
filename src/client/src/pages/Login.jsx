@@ -2,7 +2,8 @@ import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function Login () {
+function Login ({ setIsLoggedIn }) {
+    //might want to move this to a higher level component
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
@@ -19,13 +20,14 @@ function Login () {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(formData)
-
             })
+
             if (res.ok) {
                 console.log("login successful");
                 const data = await res.json();
                 const token = data.token;
                 localStorage.setItem("token", token);
+                setIsLoggedIn(true);
                 // redirect
             } else {
                 console.error("Login failed")
