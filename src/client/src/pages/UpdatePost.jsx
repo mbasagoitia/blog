@@ -3,6 +3,7 @@ import { useParams, useLocation, Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
+import DeleteBtn from "../components/DeleteBtn";
 
 function UpdatePost({ isAdmin, adminToken }) {
 
@@ -86,6 +87,7 @@ function UpdatePost({ isAdmin, adminToken }) {
             </Form>
             <Link className="btn btn-primary" to="/">Cancel</Link>
             <Button onClick={() => handleUpdatePost(id)}>Save</Button>
+            <DeleteBtn id={id} adminToken={adminToken} />
         </Container>
         </>
     )   

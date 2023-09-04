@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const { verifyToken } = require("../middlewares/authMiddleware");
+
 
 dotenv.config();
 
@@ -37,7 +39,7 @@ router.get("/singlepost/:id", async (req, res) => {
     }
 })
 
-router.post("/new", async (req, res) => {
+router.post("/new", verifyToken, async (req, res) => {
     try {
         const token = req.query.token;
         if (token !== adminToken) {
@@ -60,7 +62,7 @@ router.post("/new", async (req, res) => {
     }
 });
 
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
     try {
         const token = req.query.token;
         if (token !== adminToken) {
@@ -78,6 +80,25 @@ router.put("/update/:id", async (req, res) => {
     } catch(err) {
         console.error(err);
         res.status(500).json({ err: "An error occurred while updating the blog post" })
+    }
+})
+
+router.delete("/delete/:id", verifyToken, async (req, res) => {
+    try {
+        const token = req.query.token;
+        if (token !== adminToken) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        const id = req.params.id;
+        const deletedPost = await BlogPost.findByIdAndDelete({ _id: id });
+        if (!deletedPost) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+        res.status(200).json({ message: "Post deleted successfully" });
+
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ err: "An error occurred while deleting the blog post" })
     }
 })
 
