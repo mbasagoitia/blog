@@ -6,11 +6,17 @@ const bcrypt = require("bcrypt");
 const { join } = require("path");
 const morgan = require("morgan");
 const cors = require("cors");
-// const { createProxyMiddleware } = require("http-proxy-middleware");
 const errorHandler = require("./middlewares/errorHandler");
 const User = require("./models/Users");
 
 dotenv.config();
+
+// async function showUsers () {
+//   const users = await User.find();
+//   console.log(users);
+// }
+
+// showUsers();
 
 const adminToken = process.env.ADMIN_TOKEN;
 

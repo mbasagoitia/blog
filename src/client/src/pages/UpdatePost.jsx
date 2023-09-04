@@ -5,7 +5,7 @@ import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
 import DeleteBtn from "../components/DeleteBtn";
 
-function UpdatePost({ isAdmin, adminToken }) {
+function UpdatePost({ adminToken }) {
 
     const [post, setPost] = useState({});
     const { id } = useParams();

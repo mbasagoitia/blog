@@ -1,24 +1,22 @@
 import { useState } from "react";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function RegistrationForm () {
-    const [formData, setFormData] = useState({
-        email: "",
-        username: "",
-        password: "",
-    })
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }))
-    }
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("/auth/register", {
+            const formData = {
+                email,
+                username,
+                password
+            }
+            const res = await fetch("http://localhost:8080/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -41,7 +39,7 @@ function RegistrationForm () {
         <Form>
         <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" value={formData.email} onChange={handleChange} required />
+            <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             <Form.Text className="text-muted">
             We'll never share your email with anyone else.
             </Form.Text>
@@ -49,7 +47,7 @@ function RegistrationForm () {
 
         <Form.Group className="mb-3" controlId="formUsername">
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Username" value={formData.username} onChange={handleChange} required />
+            <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
             <Form.Text className="text-muted">
             We'll never share your email with anyone else.
             </Form.Text>
@@ -57,9 +55,9 @@ function RegistrationForm () {
 
         <Form.Group className="mb-3" controlId="formPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={formData.password} onChange={handleChange} required/>
+            <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
         </Form.Group>
-        <Button type="submit" onClick={ () => handleSubmit}>
+        <Button type="submit" onClick={handleSubmit}>
             Create Account
         </Button>
         </Form>

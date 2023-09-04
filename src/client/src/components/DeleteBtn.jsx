@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/esm/Button";
 
-function DeleteBtn ({ id, adminToken }) {
+function DeleteBtn ({ id }) {
 
     const handleDeletePost = (id) => {
         const apiUrl = `http://localhost:8080/api/delete/${id}`;
