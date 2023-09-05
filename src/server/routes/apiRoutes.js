@@ -2,18 +2,15 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const sanitizeHtml = require("sanitize-html");
 const { verifyToken } = require("../middlewares/authMiddleware");
 
 
 dotenv.config();
 
 const adminToken = process.env.ADMIN_TOKEN;
-// Import models here
-const BlogPost = require("../models/BlogPost");
 
-router.get("/", (req, res) => {
-    res.send("API index");
-})
+const BlogPost = require("../models/BlogPost");
 
 router.get("/posts", async (req, res) => {
     try {
@@ -42,12 +39,18 @@ router.get("/singlepost/:id", async (req, res) => {
 router.post("/new", verifyToken, async (req, res) => {
     try {
         const { title, description, content, createdAt, tags } = req.body;
+
+        const sanitizedTitle = sanitizeHtml(title);
+        const sanitizedDescription = sanitizeHtml(description);
+        const sanitizedContent = sanitizeHtml(content);
+        const sanitizedTags = tags.map((tag) => sanitizeHtml(tag));
+
         const newBlogPost = new BlogPost({
-            title,
-            description,
-            content,
+            sanitizedTitle,
+            sanitizedDescription,
+            sanitizedContent,
             createdAt,
-            tags
+            sanitizedTags
         });
         const savedPost = await newBlogPost.save();
         res.status(201).json(savedPost);
@@ -57,11 +60,24 @@ router.post("/new", verifyToken, async (req, res) => {
     }
 });
 
+router.post("/comment", (req, res) => {
+    // handle logic for creating new user comment
+})
+
 router.put("/update/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
-        const updatedPost = await BlogPost.findByIdAndUpdate(id, updatedData, {
+
+        const sanitizedData = {};
+
+        for (let key in updatedData) {
+            if (Object.hasOwnProperty.call(updatedData, key)) {
+                const sanitizedValue = sanitizeHtml(updatedData[key]);
+                sanitizedData[key] = sanitizedValue;
+            }
+        }
+        const updatedPost = await BlogPost.findByIdAndUpdate(id, sanitizedData, {
             new: true,
         }).exec();
         if (!updatedPost) {

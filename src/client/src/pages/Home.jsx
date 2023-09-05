@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Navigation from "../components/Navbar";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PostCard from "../components/Card";
 import LogoutBtn from "../components/LogOutBtn";
 

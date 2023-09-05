@@ -9,8 +9,6 @@ const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler");
 const User = require("./models/Users");
 
-dotenv.config();
-
 // async function showUsers () {
 //   const users = await User.find();
 //   console.log(users);
