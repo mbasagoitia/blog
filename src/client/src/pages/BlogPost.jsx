@@ -5,7 +5,6 @@ import UpdateButton from "../components/UpdateButton";
 import NewComment from "../components/NewComment";
 
 function BlogPost({ user }) {
-    console.log(user);
 
     const [post, setPost] = useState({});
     const { id } = useParams();

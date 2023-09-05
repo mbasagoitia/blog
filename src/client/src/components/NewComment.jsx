@@ -35,15 +35,19 @@ function NewComment({ postId, user }) {
 
     return (
         <>
-        <h2>Post a Comment</h2>
+        {user ? (
+            <>
+            <h2>Post a Comment</h2>
             <Form>
             <Form.Group className="mb-3" controlId="Comment">
-                <Form.Label>{user ? `@${user.username}` : "" }</Form.Label>
+                <Form.Label>{`@${user.username}`}</Form.Label>
                 <Form.Control type="text" placeholder="Your comment here..." value={comment} onChange={ (e) => setComment(e.target.value) } required />
             </Form.Group>
             <BackBtn />
             <Button onClick={handleCreateComment} className="mb-2">Save</Button>
             </Form>
+            </>
+        ) : <h2><Link to="/login">Log in</Link> or <Link to={"/register"}>Register</Link> to Post a Comment</h2>}
         </>
     )
 }

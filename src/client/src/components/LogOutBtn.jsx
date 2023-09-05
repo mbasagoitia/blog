@@ -1,11 +1,11 @@
 import Button from "react-bootstrap/esm/Button";
 
-function LogoutBtn () {
+function LogoutBtn ({ setUser }) {
 
     function handleLogout () {
         localStorage.removeItem("token");
         console.log("logged out");
-        console.log(localStorage.getItem("token"));
+        setUser(null);
     }
 
     return (

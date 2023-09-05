@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import jwtDecode from "jwt-decode";
 
-function Login ({ user }) {
-    //might want to move this to a higher level component
+function Login ({ setUser }) {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
@@ -26,7 +27,11 @@ function Login ({ user }) {
                 console.log("login successful");
                 const data = await res.json();
                 const token = data.token;
+
                 localStorage.setItem("token", token);
+
+                const decodedToken = jwtDecode(token);
+                setUser(decodedToken.user);
                 // redirect
             } else {
                 console.error("Login failed")
