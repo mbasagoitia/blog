@@ -18,6 +18,20 @@ router.get("/posts", async (req, res) => {
     }
 })
 
+router.get("/comments/:postId", async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const comments = await Comment.find({ post: postId }).populate("user").exec();
+        if (!comments) {
+            res.status(200).json({ comments: [] });
+        }
+        res.status(200).json({ comments: [...comments] });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred while fetching comments" });
+    }
+})
+
 router.get("/singlepost/:id", async (req, res) => {
     try {
         const id = req.params.id;

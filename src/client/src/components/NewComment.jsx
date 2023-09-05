@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import BackBtn from "./BackBtn";
 
 function NewComment({ postId, user }) {
@@ -31,6 +31,7 @@ function NewComment({ postId, user }) {
             }
         })
         .catch((err) => console.error(err))
+        redirect(`/${postId}`);
     }
 
     return (
@@ -43,8 +44,7 @@ function NewComment({ postId, user }) {
                 <Form.Label>{`@${user.username}`}</Form.Label>
                 <Form.Control type="text" placeholder="Your comment here..." value={comment} onChange={ (e) => setComment(e.target.value) } required />
             </Form.Group>
-            <BackBtn />
-            <Button onClick={handleCreateComment} className="mb-2">Save</Button>
+            <Button onClick={handleCreateComment} className="mb-2">Submit</Button>
             </Form>
             </>
         ) : <h2><Link to="/login">Log in</Link> or <Link to={"/register"}>Register</Link> to Post a Comment</h2>}

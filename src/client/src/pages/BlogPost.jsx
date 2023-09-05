@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import BackBtn from "../components/BackBtn";
 import UpdateButton from "../components/UpdateButton";
 import NewComment from "../components/NewComment";
+import CommentList from "../components/CommentList";
 
 function BlogPost({ user }) {
 
     const [post, setPost] = useState({});
     const { id } = useParams();
+
     useEffect(() => {
         const apiUrl = `http://localhost:8080/api/singlepost/${id}`;
         const fetchSinglePost = async () => {
@@ -39,7 +41,7 @@ function BlogPost({ user }) {
         ) : null}
         <hr />
         <NewComment postId={id} user={user}/>
-        { /* Add list of comments associated with the current blog post */}
+        <CommentList postId={id} />
         </>
     )
 }
