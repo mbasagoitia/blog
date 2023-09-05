@@ -5,12 +5,8 @@ const dotenv = require("dotenv");
 const sanitizeHtml = require("sanitize-html");
 const { verifyToken } = require("../middlewares/authMiddleware");
 
-
-dotenv.config();
-
-const adminToken = process.env.ADMIN_TOKEN;
-
 const BlogPost = require("../models/BlogPost");
+const Comment = require("../models/Comment");
 
 router.get("/posts", async (req, res) => {
     try {
@@ -18,7 +14,7 @@ router.get("/posts", async (req, res) => {
         res.status(200).json(blogPosts);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "An error occured while fetching blog posts" })
+        res.status(500).json({ error: "An error occurred while fetching blog posts" })
     }
 })
 
@@ -38,6 +34,7 @@ router.get("/singlepost/:id", async (req, res) => {
 
 router.post("/new", verifyToken, async (req, res) => {
     try {
+        if (req.userRole === "admin") {
         const { title, description, content, createdAt, tags } = req.body;
 
         const sanitizedTitle = sanitizeHtml(title);
@@ -52,20 +49,41 @@ router.post("/new", verifyToken, async (req, res) => {
             createdAt,
             sanitizedTags
         });
+
         const savedPost = await newBlogPost.save();
         res.status(201).json(savedPost);
+        }
     } catch (err) {
         console.error("Error creating blog post:", err);
         res.status(500).json({ error: "An error occurred while creating the blog post" });
     }
 });
 
-router.post("/comment", (req, res) => {
-    // handle logic for creating new user comment
+router.post("/comment", verifyToken, async (req, res) => {
+    try {
+        if (req.userRole === "admin" || req.userRole === "user") {
+        const { comment, post, createdAt } = req.body;
+        const sanitizedComment = sanitizeHtml(comment);
+
+        const newComment = new Comment({
+            comment: sanitizedComment,
+            user: req.userId,
+            post,
+            createdAt
+        });
+        // add logic for unauthorized request
+        const savedComment = await newComment.save();
+        res.status(201).json(savedComment);
+        }
+    } catch (err) {
+        console.error("Error creating comment:", err);
+        res.status(500).json({ error: "An error occurred while posting the comment" });
+    }
 })
 
 router.put("/update/:id", verifyToken, async (req, res) => {
     try {
+        if (req.userRole === "admin") {
         const id = req.params.id;
         const updatedData = req.body;
 
@@ -84,6 +102,7 @@ router.put("/update/:id", verifyToken, async (req, res) => {
             return res.status(404).json({ error: "Blog post not found" })
         }
         res.status(200).json(updatedPost);
+        }
     } catch(err) {
         console.error(err);
         res.status(500).json({ err: "An error occurred while updating the blog post" })

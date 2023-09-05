@@ -2,22 +2,10 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import BackBtn from "../components/BackBtn";
 import UpdateButton from "../components/UpdateButton";
+import NewComment from "../components/NewComment";
 
-function BlogPost() {
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    fetch("http://localhost:8080/api/get-admin-token")
-    .then((res) => res.json())
-    .then((data) => {
-        const adminToken = data.adminToken;
-        const hasAdminAccess = window.location.href.includes(adminToken);
-        if (hasAdminAccess) {
-            setIsAdmin(true);
-        }
-    })
-    .catch((err) => {
-        console.error(err)
-    });
+function BlogPost({ user }) {
+    console.log(user);
 
     const [post, setPost] = useState({});
     const { id } = useParams();
@@ -47,9 +35,12 @@ function BlogPost() {
         <p>{post.content}</p>
         <p>{post.tags ? post.tags.join(", "): null}</p>
         <BackBtn />
-        {isAdmin ? (
+        {user && user.role === "admin" ? (
             <UpdateButton post={post} />
         ) : null}
+        <hr />
+        <NewComment postId={id} user={user}/>
+        { /* Add list of comments associated with the current blog post */}
         </>
     )
 }
