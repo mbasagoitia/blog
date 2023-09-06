@@ -28,7 +28,7 @@ function UpdatePost({ adminToken }) {
                     setTitle(data.title);
                     setDescription(data.description);
                     setContent(data.content);
-                    setTags(data.tags);
+                    setTags(data.tags.join(", "));
                 } else {
                     console.error("Error fetching single post");
                 }
@@ -40,6 +40,7 @@ function UpdatePost({ adminToken }) {
     }, [id]);
 
     const handleUpdatePost = (id) => {
+  
         const apiUrl = `http://localhost:8080/api/update/${id}`;
 
         const updatedData = {

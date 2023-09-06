@@ -15,16 +15,17 @@ function CreatePost() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [content, setContent] = useState("");
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState("");
 
     const handleCreatePost = () => {
+
         const apiUrl = "http://localhost:8080/api/new";
         const postData = {
             title: title,
             description: description,
             content: content,
             createdAt: Date.now(),
-            tags: tags.split(", ")
+            tags: tags
         };
 
         fetch(apiUrl, {

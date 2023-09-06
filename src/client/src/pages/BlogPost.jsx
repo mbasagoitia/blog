@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Container from "react-bootstrap/esm/Container";
 import BackBtn from "../components/BackBtn";
 import UpdateButton from "../components/UpdateButton";
 import NewComment from "../components/NewComment";
@@ -31,6 +32,7 @@ function BlogPost({ user }) {
 
     return (
         <>
+        <Container>
         <h2>{post.title}</h2>
         <p>{post.description}</p>
         <p>{post.content}</p>
@@ -42,6 +44,7 @@ function BlogPost({ user }) {
         <hr />
         <NewComment postId={id} user={user}/>
         <CommentList postId={id} />
+        </Container>
         </>
     )
 }

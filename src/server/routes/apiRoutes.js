@@ -54,14 +54,17 @@ router.post("/new", verifyToken, async (req, res) => {
         const sanitizedTitle = sanitizeHtml(title);
         const sanitizedDescription = sanitizeHtml(description);
         const sanitizedContent = sanitizeHtml(content);
-        const sanitizedTags = tags.map((tag) => sanitizeHtml(tag));
+        const sanitizedTags = sanitizeHtml(tags);
+        let sanitizedTagsArr;
+
+        sanitizedTags ? sanitizedTagsArr = sanitizedTags.split(", ") : sanitizedTagsArr = [];
 
         const newBlogPost = new BlogPost({
-            sanitizedTitle,
-            sanitizedDescription,
-            sanitizedContent,
-            createdAt,
-            sanitizedTags
+            title: sanitizedTitle,
+            description: sanitizedDescription,
+            content: sanitizedContent,
+            createdAt: createdAt,
+            tags: sanitizedTagsArr
         });
 
         const savedPost = await newBlogPost.save();
@@ -104,11 +107,12 @@ router.put("/update/:id", verifyToken, async (req, res) => {
         const sanitizedData = {};
 
         for (let key in updatedData) {
-            if (Object.hasOwnProperty.call(updatedData, key)) {
-                const sanitizedValue = sanitizeHtml(updatedData[key]);
-                sanitizedData[key] = sanitizedValue;
-            }
-        }
+                    let sanitizedValue = sanitizeHtml(updatedData[key]);
+                    sanitizedData[key] = sanitizedValue;
+                }        
+        
+        sanitizedData["tags"] ? sanitizedData["tags"] = sanitizedData["tags"].split(", ") : sanitizedData["tags"] = [];
+
         const updatedPost = await BlogPost.findByIdAndUpdate(id, sanitizedData, {
             new: true,
         }).exec();

@@ -13,17 +13,21 @@
   color: white;
 }
 
+#title {
+  font-family: 'Pacifico', cursive;
+}
+
 .btn-primary {
-  background-color: #FF6B6B;
+  background-color: #007B7F;
   border: none;
 }
 
 .btn-primary:hover {
 
 }
-
+/* salmon: #FF6B6B */
 .btn-secondary {
-  background-color: #007B7F;
+  background-color: #FF6B6B;
   border: none;
 }
 
@@ -42,4 +46,9 @@ nav a {
 
 li {
   list-style-type: none;
+}
+
+ul, li {
+  padding: 0;
+  margin: 0;
 }
