@@ -11,6 +11,9 @@ import LogoutBtn from "../components/LogOutBtn";
 function Home({ user, setUser }) {
 
     const [blogPosts, setBlogPosts] = useState([]);
+    const [displayedPosts, setDisplayedPosts] = useState([]);
+    // update the title from all posts to the user's search terms
+    // make the navlinks work
     const [searchTerms, setSearchTerms] = useState("");
 
     useEffect(() => {
@@ -22,7 +25,7 @@ function Home({ user, setUser }) {
                 if (res.ok) {
                     const data = await res.json();
                     setBlogPosts(data);
-                    console.log(blogPosts);
+                    setDisplayedPosts(data);
                 } else {
                     console.error("Error fetching blog posts");
                 }
@@ -38,31 +41,7 @@ function Home({ user, setUser }) {
     // add a way for your nav links to set the search terms and override search bar data
     // keep the dispayed data separate from the blogPosts state
 
-    function filter (searchTerms) {
-        let searchTermsArr = searchTerms.split(",").map((term) => term.trim());
-
-        let matchesAll = blogPosts.filter((blogPost) => {
-            return searchTermsArr.every((term) => blogPost.tags.includes(term));
-        })
-        if (matchesAll.length > 0) {
-            console.log("matched all");
-            console.log(matchesAll);
-            return matchesAll;
-        }
-        let matchesSome = blogPosts.filter((blogPost) => {
-            return searchTermsArr.some((term) => blogPost.tags.includes(term));
-        })
-
-        if (matchesSome.length > 0) {
-            console.log("matched some");
-            console.log(matchesSome);
-            return matchesSome;
-        }
-        console.log("nothing found");
-        return null;
-    }
     // then loop through the returned values and display them on the home page; if no values, return "nothing found, please update search terms"
-    filter ("dog");
 
 
     return (
@@ -73,7 +52,7 @@ function Home({ user, setUser }) {
                 <h1 className="text-center my-4" id="title">CodeCrafted Chronicles</h1>
                 </Col>
             </Row>
-            <Navigation />
+            <Navigation blogPosts={blogPosts} setDisplayedPosts={setDisplayedPosts}/>
             <Row>
                 <Col>
                 <div className="d-flex justify-content-between mt-2">
@@ -94,7 +73,7 @@ function Home({ user, setUser }) {
                 </div>
                 </div>
                 <ul className="p-0 mt-4">
-                {blogPosts.map((post) => {
+                {displayedPosts.map((post) => {
                     return <li key={post._id}>
                             <PostCard post={post} user={user} />
                             </li>
