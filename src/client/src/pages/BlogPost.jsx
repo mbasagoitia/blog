@@ -9,6 +9,7 @@ import CommentList from "../components/CommentList";
 function BlogPost({ user }) {
 
     const [post, setPost] = useState({});
+    const [commentCount, setCommentCount] = useState(0);
     const { id } = useParams();
 
     useEffect(() => {
@@ -42,8 +43,8 @@ function BlogPost({ user }) {
             <UpdateButton post={post} />
         ) : null}
         <hr />
-        <NewComment postId={id} user={user}/>
-        <CommentList postId={id} />
+        <NewComment postId={id} user={user} commentCount={commentCount} setCommentCount={setCommentCount}/>
+        <CommentList postId={id} commentCount={commentCount} setCommentCount={setCommentCount} />
         </Container>
         </>
     )

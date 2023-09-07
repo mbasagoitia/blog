@@ -68,7 +68,7 @@ function UpdatePost({ adminToken }) {
 
     return (
         <>
-        <Container>
+        <Container className="mt-4">
         <h2>Update Blog Post</h2>
             <Form>
             <Form.Group className="mb-3" controlId="Title">
@@ -89,7 +89,7 @@ function UpdatePost({ adminToken }) {
             </Form.Group>
             </Form>
             <Link className="btn btn-primary" to="/">Cancel</Link>
-            <Button onClick={() => handleUpdatePost(id)}>Save</Button>
+            <Button onClick={() => handleUpdatePost(id)} className="btn-secondary mx-2">Save</Button>
             <DeleteBtn id={id} adminToken={adminToken} />
         </Container>
         </>

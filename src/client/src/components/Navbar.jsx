@@ -2,11 +2,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Filter from './Filter';
 
-function Navigation ({ blogPosts, setDisplayedPosts }) {
+function Navigation ({ blogPosts, setDisplayedPosts, setSearchTerms }) {
+
+    const handleFilter = (searchTerms) => {
+        setDisplayedPosts(filter(searchTerms));
+        setSearchTerms(searchTerms);
+    }
 
     function filter (searchTerms) {
         let searchTermsArr = searchTerms.split(",").map((term) => term.trim());
@@ -35,19 +38,23 @@ function Navigation ({ blogPosts, setDisplayedPosts }) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto w-100 d-flex justify-content-evenly flex-wrap">  
-                    <Nav.Link onClick={() => setDisplayedPosts(blogPosts)}>All Posts</Nav.Link>
-                    <Nav.Link onClick={() => setDisplayedPosts(filter("tech trends, tech, trends"))}>Tech Trends</Nav.Link>
-                    <Nav.Link onClick={() => setDisplayedPosts(filter("tutorials"))}>Tutorials</Nav.Link>
-                    <Nav.Link onClick={() => setDisplayedPosts(filter("web design, ux"))}>Web Design and UX</Nav.Link>
+                { /* is there a better way to do this, maybe with map? */ }
+                    <Nav.Link onClick={() => {
+                        setDisplayedPosts(blogPosts);
+                        setSearchTerms("All Posts");
+                    }}>All Posts</Nav.Link>
+                    <Nav.Link onClick={() => handleFilter("tech trends, tech, trends")}>Tech Trends</Nav.Link>
+                    <Nav.Link onClick={() => handleFilter("tutorials")}>Tutorials</Nav.Link>
+                    <Nav.Link onClick={() => handleFilter("web design, ux")}>Web Design and UX</Nav.Link>
                 <NavDropdown title="Career" id="basic-nav-dropdown">
-                    <NavDropdown.Item onClick={() => setDisplayedPosts(filter("career, jobs, job"))}>All</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => setDisplayedPosts(filter("interview, interview prep"))}>Interview Prep</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => setDisplayedPosts(filter("job, jobs, job search"))}>Job Search Resources</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => setDisplayedPosts(filter("community, events"))}>Community and Events</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => setDisplayedPosts(filter("career switch, switch, career switching, switching"))}>Switching Careers</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleFilter("career, jobs, job")}>All</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleFilter("interview, interview prep")}>Interview Prep</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleFilter("job, jobs, job search")}>Job Search Resources</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleFilter("community, events")}>Community and Events</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleFilter("career switch, switch, career switching, switching")}>Switching Careers</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
-                <Filter blogPosts={blogPosts} setDisplayedPosts={setDisplayedPosts} filter={filter} />
+                <Filter blogPosts={blogPosts} setDisplayedPosts={setDisplayedPosts} filter={filter} setSearchTerms={setSearchTerms} />
                 </Navbar.Collapse>
             </Container>    
         </Navbar>

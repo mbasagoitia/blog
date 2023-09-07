@@ -21,7 +21,7 @@ router.get("/posts", async (req, res) => {
 router.get("/comments/:postId", async (req, res) => {
     try {
         const postId = req.params.postId;
-        const comments = await Comment.find({ post: postId }).populate("user").exec();
+        const comments = await Comment.find({ post: postId }).populate("user").sort({ createdAt: "desc" }).exec();
         if (!comments) {
             res.status(200).json({ comments: [] });
         }

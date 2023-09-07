@@ -56,3 +56,7 @@ ul, li {
 .dropdown-item {
   color: #333333 !important;
 }
+
+#displayed-posts-heading {
+  font-size: 1.5rem;
+}

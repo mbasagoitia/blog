@@ -4,13 +4,14 @@ import Button from 'react-bootstrap/Button';
 import { Link, redirect } from "react-router-dom";
 import BackBtn from "./BackBtn";
 
-function NewComment({ postId, user }) {
+function NewComment({ postId, user, commentCount, setCommentCount }) {
 
     const token = localStorage.getItem("token");
 
     const [comment, setComment] = useState("");
 
-    const handleCreateComment = () => {
+    const handleCreateComment = (e) => {
+        e.preventDefault();
         const apiUrl = "http://localhost:8080/api/comment";
         const commentData = {
             comment: comment,
@@ -26,12 +27,13 @@ function NewComment({ postId, user }) {
         .then((res) => {
             if (res.ok) {
                 console.log("Comment posted successfully");
+                setCommentCount(commentCount + 1);
             } else {
                 console.error("Error posting comment")
             }
         })
         .catch((err) => console.error(err))
-        redirect(`/${postId}`);
+        setComment("");
     }
 
     return (
@@ -39,12 +41,12 @@ function NewComment({ postId, user }) {
         {user ? (
             <>
             <h2>Post a Comment</h2>
-            <Form>
+            <Form onSubmit={(e) => handleCreateComment(e)}>
             <Form.Group className="mb-3" controlId="Comment">
                 <Form.Label>{`@${user.username}`}</Form.Label>
                 <Form.Control type="text" placeholder="Your comment here..." value={comment} onChange={ (e) => setComment(e.target.value) } required />
             </Form.Group>
-            <Button onClick={handleCreateComment} className="mb-2">Submit</Button>
+            <Button className="mb-2">Submit</Button>
             </Form>
             </>
         ) : <h2><Link to="/login">Log in</Link> or <Link to={"/register"}>Register</Link> to Post a Comment</h2>}

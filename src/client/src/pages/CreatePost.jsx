@@ -45,7 +45,7 @@ function CreatePost() {
 
     return (
         <>
-        <Container>
+        <Container className="mt-4">
         <h2>New Blog Post</h2>
             <Form>
             <Form.Group className="mb-3" controlId="Title">
@@ -66,7 +66,7 @@ function CreatePost() {
             </Form.Group>
             </Form>
             <BackBtn />
-            <Button onClick={handleCreatePost}>Save</Button>
+            <Button onClick={handleCreatePost} className="btn-secondary mb-2 mx-2">Save</Button>
         </Container>
         </>
     )

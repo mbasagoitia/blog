@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Comment from "./Comment";
 
-function CommentList({ postId }) {
+function CommentList({ postId, commentCount, setCommentCount }) {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ function CommentList({ postId }) {
                 if (res.ok) {
                     const data = await res.json();
                     setComments(data.comments);
-                    console.log(comments);
+                    setCommentCount(data.comments.length);
                 } else {
                     console.error("Error fetching comments");
                 }
@@ -22,17 +22,19 @@ function CommentList({ postId }) {
         }
         
         fetchComments();
-    }, [postId]);
+    }, [postId, commentCount]);
 
     return (
         <>
         {comments.length > 0 ? (
+            <>
+            <span>Comments: ({commentCount})</span>
             <ul>
                 {comments.map((comment) => {
-                // this will need to be a separate component
                 return <Comment key={comment._id} comment={comment} />
                 })}
             </ul>
+            </>
         ) : null }
         </>
     )
