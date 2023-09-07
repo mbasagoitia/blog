@@ -52,3 +52,7 @@ ul, li {
   padding: 0;
   margin: 0;
 }
+
+.dropdown-item {
+  color: #333333 !important;
+}

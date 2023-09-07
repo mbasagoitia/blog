@@ -13,7 +13,7 @@ function Home({ user, setUser }) {
     const [blogPosts, setBlogPosts] = useState([]);
     const [displayedPosts, setDisplayedPosts] = useState([]);
     // update the title from all posts to the user's search terms
-    // make the navlinks work
+    // why isn't adding comments trigger a re-render?
     const [searchTerms, setSearchTerms] = useState("");
 
     useEffect(() => {

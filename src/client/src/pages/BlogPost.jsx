@@ -33,7 +33,7 @@ function BlogPost({ user }) {
     return (
         <>
         <Container>
-        <h2>{post.title}</h2>
+        <h1 className="mt-4">{post.title}</h1>
         <p>{post.description}</p>
         <p>{post.content}</p>
         <p>{post.tags ? post.tags.join(", "): null}</p>

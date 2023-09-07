@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 
-function Filter ({ blogPosts, setDisplayedPosts }) {
+function Filter ({ setDisplayedPosts, filter }) {
 
     const [searchTerms, setSearchTerms] = useState("");
     
@@ -13,28 +13,9 @@ function Filter ({ blogPosts, setDisplayedPosts }) {
         return false;
     }
 
-    function filter (searchTerms) {
-        let searchTermsArr = searchTerms.split(",").map((term) => term.trim());
-
-        let matchesAll = blogPosts.filter((blogPost) => {
-            return searchTermsArr.every((term) => blogPost.tags.includes(term));
-        })
-        if (matchesAll.length > 0) {
-            return matchesAll;
-        }
-        let matchesSome = blogPosts.filter((blogPost) => {
-            return searchTermsArr.some((term) => blogPost.tags.includes(term));
-        })
-
-        if (matchesSome.length > 0) {
-            return matchesSome;
-        }
-        return [];
-    }
-
     return (
         <Form onSubmit={(e) => {handleSearch(e)}}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group controlId="exampleForm.ControlInput1">
             <div className="input-group m-auto" id="search-wrapper">
                 <div className="input-group-prepend">
                     <span className="input-group-text h-100" onClick={handleSearch} id="basic-addon1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
