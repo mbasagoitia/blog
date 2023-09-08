@@ -6,8 +6,9 @@ function DeleteBtn ({ id }) {
 
     const handleDeletePost = (id) => {
         // make this more reusable by passing in a type of post or comment
-        // instead of deleting right away, show a modal that confirms whether to actually delete or not
-        
+        // useNavigate to either the homepage (post) or the post (comment)
+        // style the pages as viewed when logged out
+
         const apiUrl = `http://localhost:8080/api/delete/${id}`;
         
         fetch(apiUrl, {
