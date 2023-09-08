@@ -29,7 +29,7 @@ function CommentList({ postId, commentCount, setCommentCount }) {
         {comments.length > 0 ? (
             <>
             <span>Comments: ({commentCount})</span>
-            <ul>
+            <ul className="mt-2">
                 {comments.map((comment) => {
                 return <Comment key={comment._id} comment={comment} />
                 })}

@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
 import BackBtn from "../components/BackBtn";
 
 function CreatePost() {
 
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -36,6 +34,7 @@ function CreatePost() {
         .then((res) => {
             if (res.ok) {
                 console.log("Post created successfully");
+                navigate(-1);
             } else {
                 console.error("Error creating post")
             }

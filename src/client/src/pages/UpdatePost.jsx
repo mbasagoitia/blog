@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
@@ -8,6 +8,7 @@ import DeleteBtn from "../components/DeleteBtn";
 function UpdatePost({ adminToken }) {
 
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
 
     const [post, setPost] = useState({});
     const { id } = useParams();
@@ -59,6 +60,7 @@ function UpdatePost({ adminToken }) {
         .then((res) => {
             if (res.ok) {
                 console.log("Post updated successfully");
+                navigate(-1);
             } else {
                 console.error("Error updating post")
             }

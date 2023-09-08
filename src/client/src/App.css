@@ -53,6 +53,11 @@ ul, li {
   margin: 0;
 }
 
+a {
+  color: #007B7F;
+}
+
+
 .dropdown-item {
   color: #333333 !important;
 }
@@ -60,3 +65,4 @@ ul, li {
 #displayed-posts-heading {
   font-size: 1.5rem;
 }
+

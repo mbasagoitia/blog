@@ -41,12 +41,12 @@ function NewComment({ postId, user, commentCount, setCommentCount }) {
         {user ? (
             <>
             <h2>Post a Comment</h2>
-            <Form onSubmit={(e) => handleCreateComment(e)}>
+            <Form onSubmit={(e) => handleCreateComment(e)} className="mb-4">
             <Form.Group className="mb-3" controlId="Comment">
                 <Form.Label>{`@${user.username}`}</Form.Label>
                 <Form.Control type="text" placeholder="Your comment here..." value={comment} onChange={ (e) => setComment(e.target.value) } required />
             </Form.Group>
-            <Button className="mb-2">Submit</Button>
+            <Button type="submit" className="mb-2">Submit</Button>
             </Form>
             </>
         ) : <h2><Link to="/login">Log in</Link> or <Link to={"/register"}>Register</Link> to Post a Comment</h2>}

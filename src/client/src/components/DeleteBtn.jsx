@@ -5,6 +5,9 @@ function DeleteBtn ({ id }) {
     const token = localStorage.getItem("token");
 
     const handleDeletePost = (id) => {
+        // make this more reusable by passing in a type of post or comment
+        // instead of deleting right away, show a modal that confirms whether to actually delete or not
+        
         const apiUrl = `http://localhost:8080/api/delete/${id}`;
         
         fetch(apiUrl, {
