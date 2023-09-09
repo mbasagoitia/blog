@@ -33,7 +33,7 @@ function Navigation ({ blogPosts, setDisplayedPosts, setSearchTerms }) {
     }
 
     return (
-        <Navbar expand="sm">
+        <Navbar expand="sm" className="sticky-top navbar-dark">
             <Container fluid className="m-0 w-100 text-center">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

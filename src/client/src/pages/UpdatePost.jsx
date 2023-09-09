@@ -5,7 +5,7 @@ import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
 import DeleteBtn from "../components/DeleteBtn";
 
-function UpdatePost({ adminToken }) {
+function UpdatePost() {
 
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
@@ -87,7 +87,6 @@ function UpdatePost({ adminToken }) {
                 </div>
                 <div className="modal-buttons">
                     <Button className="btn-secondary" onClick={() => setModalShown(false)}>Cancel</Button>
-                    {/* redirect after deleting is done */}
                     <DeleteBtn type="post" id={id} />
                 </div>
             </div>

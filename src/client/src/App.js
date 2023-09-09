@@ -19,8 +19,7 @@ function App() {
       const decodedToken = jwtDecode(token);
       setUser(decodedToken.user);
     }
-    console.log(user);
-// still confusion here
+    
   }, [token])
 
   return (
