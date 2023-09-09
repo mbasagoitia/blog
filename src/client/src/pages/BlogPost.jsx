@@ -39,7 +39,7 @@ function BlogPost({ user }) {
         <>
         <Container className="mt-4">
         <h1>{post.title}</h1>
-        <span className="text-muted">{post.createdAt}</span>
+        <span className="text-muted">By: {post.author} | {post.createdAt} </span>
         <div dangerouslySetInnerHTML={{__html: post.content}} className="mt-4" />
         {post.tags && post.tags.length > 0 ? (
                     <div className="mt-4"> 

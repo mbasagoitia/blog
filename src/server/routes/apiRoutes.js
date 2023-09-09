@@ -49,7 +49,7 @@ router.get("/singlepost/:id", async (req, res) => {
 router.post("/new", verifyToken, async (req, res) => {
     try {
         if (req.userRole === "admin") {
-        const { title, description, content, createdAt, tags } = req.body;
+        const { title, author, description, content, createdAt, tags } = req.body;
 
         const sanitizedTitle = sanitizeHtml(title);
         const sanitizedDescription = sanitizeHtml(description);
@@ -61,6 +61,7 @@ router.post("/new", verifyToken, async (req, res) => {
 
         const newBlogPost = new BlogPost({
             title: sanitizedTitle,
+            author: author,
             description: sanitizedDescription,
             content: sanitizedContent,
             createdAt: createdAt,

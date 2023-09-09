@@ -32,7 +32,7 @@
 
 .btn-primary:hover, .btn-primary:active {
   background: #007B7F;
-}
+} 
 
 .btn-secondary {
   background-color: #FF6B6B;
@@ -48,13 +48,17 @@ nav {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-nav a {
-  color: #F5F5F5 !important;
+.nav-link {
+  color: #F5F5F5;
 }
 
 #search-wrapper {
   min-width: 200px;
   max-width: 25vw;
+}
+
+#filter-search-btn:hover {
+  cursor: pointer;
 }
 
 li {

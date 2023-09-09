@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import BackBtn from "../components/BackBtn";
 
-function CreatePost() {
+function CreatePost({ user }) {
 
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
@@ -20,6 +20,7 @@ function CreatePost() {
         const apiUrl = "http://localhost:8080/api/new";
         const postData = {
             title: title,
+            author: user.username,
             description: description,
             content: content,
             createdAt: Date.now(),

@@ -47,9 +47,9 @@ function Navigation ({ blogPosts, setDisplayedPosts, setSearchTerms }) {
                     <Nav.Link onClick={() => handleFilter("tutorials")}>Tutorials</Nav.Link>
                     <Nav.Link onClick={() => handleFilter("web design, ux")}>Web Design and UX</Nav.Link>
                 <NavDropdown title="Career" id="basic-nav-dropdown">
-                    <NavDropdown.Item onClick={() => handleFilter("career, jobs, job")}>All</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleFilter("career")}>All</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => handleFilter("interview, interview prep")}>Interview Prep</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => handleFilter("job, jobs, job search")}>Job Search Resources</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => handleFilter("job search, job, jobs")}>Job Search Resources</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => handleFilter("community, events")}>Community and Events</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => handleFilter("career switch, switch, career switching, switching")}>Switching Careers</NavDropdown.Item>
                 </NavDropdown>
