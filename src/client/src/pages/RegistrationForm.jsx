@@ -2,10 +2,12 @@ import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/esm/Container";
 import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BackBtn from "../components/BackBtn";
 
 function RegistrationForm () {
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -27,7 +29,7 @@ function RegistrationForm () {
                 body: JSON.stringify(formData)
             })
             if (res.ok) {
-                // redirect to login page
+                navigate(-1);
                 console.log("Registration successful")
             } else {
                 console.error("Registration failed")

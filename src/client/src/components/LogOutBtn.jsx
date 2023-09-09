@@ -9,7 +9,7 @@ function LogoutBtn ({ setUser }) {
     }
 
     return (
-        <Button onClick={handleLogout}>Log Out</Button>
+        <Button onClick={handleLogout} id="log-out-btn">Log Out</Button>
     )
 }
 

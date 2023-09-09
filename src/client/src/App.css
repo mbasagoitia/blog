@@ -105,6 +105,10 @@ a {
   cursor: pointer;
 }
 
+#log-out-btn {
+  white-space: nowrap;
+}
+
 @media (min-width: 500px) {
   #close-modal {
     margin-left: 90%;

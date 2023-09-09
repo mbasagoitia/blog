@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Comment from "./Comment";
 
-function CommentList({ postId, commentCount, setCommentCount }) {
+function CommentList({ postId, commentCount, setCommentCount, user }) {
+    
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -31,7 +32,7 @@ function CommentList({ postId, commentCount, setCommentCount }) {
             <span>Comments: ({commentCount})</span>
             <ul className="mt-2">
                 {comments.map((comment) => {
-                return <Comment key={comment._id} comment={comment} />
+                return <Comment key={comment._id} comment={comment} commentCount={commentCount} setCommentCount={setCommentCount} user={user} />
                 })}
             </ul>
             </>

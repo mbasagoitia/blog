@@ -88,7 +88,6 @@ router.post("/comment", verifyToken, async (req, res) => {
             post,
             createdAt
         });
-        // add logic for unauthorized request
         const savedComment = await newComment.save();
         res.status(201).json(savedComment);
         }
@@ -127,7 +126,7 @@ router.put("/update/:id", verifyToken, async (req, res) => {
     }
 })
 
-router.delete("/delete/:id", verifyToken, async (req, res) => {
+router.delete("/delete/post/:id", verifyToken, async (req, res) => {
     try {
         if (req.userRole === "admin") {
             const id = req.params.id;
@@ -140,6 +139,23 @@ router.delete("/delete/:id", verifyToken, async (req, res) => {
     } catch(err) {
         console.error(err);
         res.status(500).json({ err: "An error occurred while deleting the blog post" })
+    }
+})
+
+router.delete("/delete/comment/:id", verifyToken, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const comment = await Comment.findById({ _id: id });
+        if (req.userRole === "admin" || req.userId === comment.user.toString()) {   
+            const deletedComment = await Comment.findByIdAndDelete({ _id: id });
+        if (!deletedComment) {
+            return res.status(404).json({ error: "Comment not found" });
+        }
+        res.status(200).json({ message: "Comment deleted successfully" });
+        } 
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ err: "An error occurred while deleting the comment" })
     }
 })
 

@@ -49,7 +49,7 @@ function NewComment({ postId, user, commentCount, setCommentCount }) {
             <Button type="submit" className="mb-2">Submit</Button>
             </Form>
             </>
-        ) : <h2><Link to="/login">Log in</Link> or <Link to={"/register"}>Register</Link> to Post a Comment</h2>}
+        ) : <p><Link to="/login">Log in</Link> or <Link to={"/register"}>Register</Link> to Post a Comment</p>}
         </>
     )
 }

@@ -88,13 +88,13 @@ function UpdatePost({ adminToken }) {
                 <div className="modal-buttons">
                     <Button className="btn-secondary" onClick={() => setModalShown(false)}>Cancel</Button>
                     {/* redirect after deleting is done */}
-                    <DeleteBtn id={id} />
+                    <DeleteBtn type="post" id={id} />
                 </div>
             </div>
         </div>
         ) : null}
         <Container className="mt-4">
-        <h2>Update Blog Post</h2>
+        <h2>Edit Blog Post</h2>
             <Form>
             <Form.Group className="mb-3" controlId="Title">
                 <Form.Label>Title</Form.Label>

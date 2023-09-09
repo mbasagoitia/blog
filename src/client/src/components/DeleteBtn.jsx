@@ -1,15 +1,14 @@
 import Button from "react-bootstrap/esm/Button";
+import { useNavigate } from "react-router-dom";
 
-function DeleteBtn ({ id }) {
+function DeleteBtn ({ type, id, commentCount, setCommentCount }) {
 
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
 
-    const handleDeletePost = (id) => {
-        // make this more reusable by passing in a type of post or comment
-        // useNavigate to either the homepage (post) or the post (comment)
-        // style the pages as viewed when logged out
+    const handleDelete = (type, id) => {
 
-        const apiUrl = `http://localhost:8080/api/delete/${id}`;
+        const apiUrl = `http://localhost:8080/api/delete/${type}/${id}`;
         
         fetch(apiUrl, {
             method: "DELETE",
@@ -17,16 +16,21 @@ function DeleteBtn ({ id }) {
         })
         .then((res) => {
             if (res.ok) {
-                console.log("Post deleted successfully");
+                console.log(`${type} deleted successfully`);
+                if (type === "post") {
+                    navigate("/");
+                } else if (type === "comment") {
+                    setCommentCount(commentCount -1);
+                }
             } else {
-                console.error("Error deleting post")
+                console.error(`Error deleting ${type}`)
             }
         })
         .catch((err) => console.error(err))
     }
 
     return (
-        <Button onClick={() => handleDeletePost(id)} >Delete</Button>
+        <Button onClick={() => handleDelete(type, id)} >Delete</Button>
     )
 }
 
