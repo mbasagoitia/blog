@@ -30,8 +30,9 @@
   border: none;
 }
 
-.btn-primary:hover, .btn-primary:active {
+.btn-primary:hover, .active > .btn-primary {
   background: #007B7F;
+  --bs-btn-active-bg: #007B7F;
 } 
 
 .btn-secondary {
@@ -39,8 +40,9 @@
   border: none;
 }
 
-.btn-secondary:hover, .btn-secondary:active {
+.btn-secondary:hover, .active > .btn-secondary {
   background: #FF6B6B;
+  --bs-btn-active-bg: #FF6B6B;
 }
 
 nav {
@@ -145,9 +147,35 @@ a {
   white-space: nowrap;
 }
 
+.pagination {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+
+.page-link {
+  background: #007B7F;
+  color: white;
+  border: 1px solid white;
+}
+
+.page-link:hover {
+  background: #FF6B6B;
+  color: white;
+}
+
+.active > .page-link {
+  background: #FF6B6B;
+  color: white;
+  border: 1px solid white;
+}
+
 #footer-container {
   justify-content: center;
   font-size: 0.8rem;
+}
+
+.email:hover, .github:hover, .linkedin:hover {
+  color: #FF6B6B;
 }
 
 @media (min-width: 500px) {

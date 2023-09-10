@@ -24,9 +24,9 @@ function PaginationControls ({ displayedPosts, setPagination }) {
         }
 
     return (
-        <div>
-            <Pagination>{paginationNums}</Pagination>
-        </div>
+        <>
+            <Pagination className="my-4">{paginationNums}</Pagination>
+        </>
     );
 
 }
