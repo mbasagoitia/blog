@@ -13,6 +13,8 @@ function Home({ user, setUser }) {
 
     const [blogPosts, setBlogPosts] = useState([]);
     const [displayedPosts, setDisplayedPosts] = useState([]);
+    // If the number of displayed posts is greater than 10, only render the first 10
+    const [pagination, setPagination] = useState([]);
     const [searchTerms, setSearchTerms] = useState("");
 
     useEffect(() => {
@@ -25,6 +27,9 @@ function Home({ user, setUser }) {
                     const data = await res.json();
                     setBlogPosts(data);
                     setDisplayedPosts(data);
+                    if (data.length > 10) {
+                        setPagination(data);
+                    }
                 } else {
                     console.error("Error fetching blog posts");
                 }
@@ -62,12 +67,12 @@ function Home({ user, setUser }) {
                     </> }
                 </div>
                 </div>
-                <PostsList displayedPosts={displayedPosts} user={user} />
+                <PostsList displayedPosts={pagination.length > 0 ? pagination.slice(0, 10) : displayedPosts} user={user} />
                 </Col>
             </Row>
             <Row>
                 <Col>
-                {/* <PaginationControls displayedPosts={displayedPosts} setDisplayedPosts={setDisplayedPosts}/> */}
+                <PaginationControls displayedPosts={displayedPosts} setPagination={setPagination}/>
                 </Col>
             </Row>
         </Container>
@@ -75,5 +80,6 @@ function Home({ user, setUser }) {
         </>
     )
 }
+
 
 export default Home;

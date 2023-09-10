@@ -1,27 +1,31 @@
 import Pagination from 'react-bootstrap/Pagination';
 import { useState } from "react";
 
-function PaginationControls ({ displayedPosts, setDisplayedPosts }) {
+function PaginationControls ({ displayedPosts, setPagination }) {
 
-    // A change in the active state will determine which page is rendered (setDisplayedPosts(sortedItems[active])
     let [active, setActive] = useState(1);
 
     let allItems = [...displayedPosts];
-    // The number of pages corresponds to the length of the sortedItems array
-    // Each pagination item needs an event listener that will trigger the change in the active page
     let sortedItems = [];
+    let paginationNums = [];
 
-
-
-//     <Pagination.Item key={i} active={i === active}>
-    // this needs to be a number
-//     {i}
-// </Pagination.Item>
-
+        if (displayedPosts.length > 10) {
+            while (allItems.length > 0) {
+                sortedItems.push(allItems.splice(0, 10));
+            }
+        
+            for (let i = 1; i < sortedItems.length; i++) {
+                paginationNums.push(<Pagination.Item key={i} active={i === active} onClick={() => {
+                    setActive(i);
+                    setPagination(sortedItems[i]);
+                    // Scroll user to top of page?
+                }}>{i}</Pagination.Item>)
+            }
+        }
 
     return (
         <div>
-            <Pagination>{sortedItems}</Pagination>
+            <Pagination>{paginationNums}</Pagination>
         </div>
     );
 
