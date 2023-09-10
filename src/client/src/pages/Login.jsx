@@ -39,7 +39,7 @@ function Login ({ setUser }) {
 
                 const decodedToken = jwtDecode(token);
                 setUser(decodedToken.user);
-                navigate(-1);
+                navigate("/");
             } else {
                 console.error("Login failed")
             }

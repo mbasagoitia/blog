@@ -38,7 +38,6 @@ function Navigation ({ blogPosts, setDisplayedPosts, setSearchTerms }) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto w-100 d-flex justify-content-evenly flex-wrap">  
-                { /* is there a better way to do this, maybe with map? */ }
                     <Nav.Link onClick={() => {
                         setDisplayedPosts(blogPosts);
                         setSearchTerms("All Posts");

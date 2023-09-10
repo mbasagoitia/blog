@@ -48,6 +48,10 @@ nav {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.nav-text {
+  color:#F5F5F5 !important;
+}
+
 .nav-link {
   color: #F5F5F5;
 }
@@ -141,6 +145,11 @@ a {
   white-space: nowrap;
 }
 
+#footer-container {
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
 @media (min-width: 500px) {
   #close-modal {
     margin-left: 90%;
@@ -148,6 +157,13 @@ a {
   .list li {
     display: inline-block;
     width: 50%;
+  }
+}
+
+@media (min-width: 530px) {
+  #footer-container {
+    justify-content: space-between;
+    font-size: 1rem;
   }
 }
 

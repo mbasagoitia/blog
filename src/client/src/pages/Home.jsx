@@ -6,6 +6,8 @@ import Navigation from "../components/Navbar";
 import { Link } from "react-router-dom";
 import LogoutBtn from "../components/LogOutBtn";
 import PostsList from "../components/PostsList";
+import PaginationControls from "../components/Pagination";
+import Footer from "../components/Footer";
 
 function Home({ user, setUser }) {
 
@@ -63,7 +65,13 @@ function Home({ user, setUser }) {
                 <PostsList displayedPosts={displayedPosts} user={user} />
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                {/* <PaginationControls displayedPosts={displayedPosts} setDisplayedPosts={setDisplayedPosts}/> */}
+                </Col>
+            </Row>
         </Container>
+        <Footer />
         </>
     )
 }
