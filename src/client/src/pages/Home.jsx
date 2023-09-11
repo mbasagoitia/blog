@@ -12,9 +12,8 @@ import Footer from "../components/Footer";
 function Home({ user, setUser }) {
 
     const [blogPosts, setBlogPosts] = useState([]);
+    const [filteredPosts, setFilteredPosts] = useState([]);
     const [displayedPosts, setDisplayedPosts] = useState([]);
-    // If the number of displayed posts is greater than 10, only render the first 10
-    const [pagination, setPagination] = useState([]);
     const [searchTerms, setSearchTerms] = useState("");
 
     useEffect(() => {
@@ -26,10 +25,8 @@ function Home({ user, setUser }) {
                 if (res.ok) {
                     const data = await res.json();
                     setBlogPosts(data);
-                    setDisplayedPosts(data);
-                    if (data.length > 10) {
-                        setPagination(data);
-                    }
+                    // Issue here?
+                    setFilteredPosts(data);
                 } else {
                     console.error("Error fetching blog posts");
                 }
@@ -43,7 +40,7 @@ function Home({ user, setUser }) {
        return (
         <>
         <h1 className="text-center my-4" id="title">CodeCrafted Chronicles</h1>
-            <Navigation blogPosts={blogPosts} setDisplayedPosts={setDisplayedPosts} setSearchTerms={setSearchTerms}/>
+            <Navigation blogPosts={blogPosts} setFilteredPosts={setFilteredPosts} setDisplayedPosts={setDisplayedPosts} setSearchTerms={setSearchTerms}/>
                 <Container fluid>
                 <Row>
                     <Col>
@@ -63,13 +60,13 @@ function Home({ user, setUser }) {
                                 </> }
                             </div>
                         </div>
-                        {/* Issues here with filter */}
-                <PostsList displayedPosts={pagination.length > 0 ? pagination.slice(0, 10) : displayedPosts} user={user} />
+                        { /* We are getting first 10, but after that getting all posts */ }
+                <PostsList displayedPosts={displayedPosts.length > 0 ? displayedPosts : filteredPosts } user={user} />
                 </Col>
             </Row>
             <Row>
                 <Col className="d-flex justify-content-center">
-                <PaginationControls displayedPosts={displayedPosts} setPagination={setPagination}/>
+                <PaginationControls filteredPosts={filteredPosts} setDisplayedPosts={setDisplayedPosts} />
                 </Col>
             </Row>
         </Container>

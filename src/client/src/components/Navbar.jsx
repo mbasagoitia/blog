@@ -4,10 +4,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Filter from './Filter';
 
-function Navigation ({ blogPosts, setDisplayedPosts, setSearchTerms }) {
+function Navigation ({ blogPosts, setFilteredPosts, setDisplayedPosts, setSearchTerms }) {
 
     const handleFilter = (searchTerms) => {
-        setDisplayedPosts(filter(searchTerms));
+        setFilteredPosts(filter(searchTerms));
+        setDisplayedPosts([]);
         setSearchTerms(searchTerms);
     }
 
@@ -39,7 +40,7 @@ function Navigation ({ blogPosts, setDisplayedPosts, setSearchTerms }) {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto w-100 d-flex justify-content-evenly flex-wrap">  
                     <Nav.Link onClick={() => {
-                        setDisplayedPosts(blogPosts);
+                        setFilteredPosts(blogPosts);
                         setSearchTerms("All Posts");
                     }}>All Posts</Nav.Link>
                     <Nav.Link onClick={() => handleFilter("tech trends, tech, trends")}>Tech Trends</Nav.Link>
@@ -53,7 +54,7 @@ function Navigation ({ blogPosts, setDisplayedPosts, setSearchTerms }) {
                     <NavDropdown.Item onClick={() => handleFilter("career switch, switch, career switching, switching")}>Switching Careers</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
-                <Filter blogPosts={blogPosts} setDisplayedPosts={setDisplayedPosts} filter={filter} setSearchTerms={setSearchTerms} />
+                <Filter blogPosts={blogPosts} setFilteredPosts={setFilteredPosts} filter={filter} setSearchTerms={setSearchTerms} />
                 </Navbar.Collapse>
             </Container>    
         </Navbar>

@@ -1,23 +1,31 @@
 import Pagination from 'react-bootstrap/Pagination';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function PaginationControls ({ displayedPosts, setPagination }) {
+function PaginationControls ({ filteredPosts, setDisplayedPosts }) {
+
+    useEffect(() => {
+        setDisplayedPosts(filteredPosts.slice(0,10));
+        setActive(1);
+    }, [filteredPosts])
 
     let [active, setActive] = useState(1);
 
-    let allItems = [...displayedPosts];
+    let allItems = [...filteredPosts];
     let sortedItems = [];
     let paginationNums = [];
 
-        if (displayedPosts.length > 10) {
+        if (filteredPosts.length > 10) {
             while (allItems.length > 0) {
                 sortedItems.push(allItems.splice(0, 10));
             }
+
+            // Need to set initial display of first ten items
+
         
-            for (let i = 1; i < sortedItems.length; i++) {
+            for (let i = 1; i <= sortedItems.length; i++) {
                 paginationNums.push(<Pagination.Item key={i} active={i === active} onClick={() => {
                     setActive(i);
-                    setPagination(sortedItems[i]);
+                    setDisplayedPosts(sortedItems[i-1]);
                     // Scroll user to top of page?
                 }}>{i}</Pagination.Item>)
             }
