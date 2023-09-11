@@ -5,8 +5,18 @@ const dotenv = require("dotenv");
 const sanitizeHtml = require("sanitize-html");
 const { verifyToken } = require("../middlewares/authMiddleware");
 
+dotenv.config();
+
 const BlogPost = require("../models/BlogPost");
 const Comment = require("../models/Comment");
+
+router.get("/api-key", (req, res) => {
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+        return res.status(500).json({ error: "API key not found" });
+    }
+    res.json({ apiKey });
+})
 
 router.get("/posts", async (req, res) => {
     try {

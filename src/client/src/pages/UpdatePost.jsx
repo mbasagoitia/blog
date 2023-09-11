@@ -1,23 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
 import DeleteBtn from "../components/DeleteBtn";
+import { Editor } from '@tinymce/tinymce-react';
 
 function UpdatePost() {
 
     const token = localStorage.getItem("token");
+
     const navigate = useNavigate();
+    const editorRef = useRef(null);
 
     const [post, setPost] = useState({});
     const { id } = useParams();
 
+    const [apiKey, setApiKey] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [initialContent, setInitialContent] = useState("");
     const [content, setContent] = useState("");
     const [tags, setTags] = useState("");
     const [modalShown, setModalShown] = useState(false);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/api/api-key")
+        .then((res) => res.json())
+        .then((data) => setApiKey(data.apiKey))
+        .catch((err) => console.error(err));
+    }, [])
 
     useEffect(() => {
         const apiUrl = `http://localhost:8080/api/singlepost/${id}`;
@@ -29,7 +41,7 @@ function UpdatePost() {
                     setPost(data);
                     setTitle(data.title);
                     setDescription(data.description);
-                    setContent(data.content);
+                    setInitialContent(data.content);
                     setTags(data.tags.join(", "));
                 } else {
                     console.error("Error fetching single post");
@@ -41,10 +53,17 @@ function UpdatePost() {
         fetchSinglePost();
     }, [id]);
 
-    const handleUpdatePost = (id) => {
-  
+    const handleUpdatePost = (e, id) => {
+        
+        e.preventDefault();
         const apiUrl = `http://localhost:8080/api/update/${id}`;
 
+        if (editorRef.current) {
+            let htmlContent = editorRef.current.getContent();
+            setContent(htmlContent);
+          }
+
+        if (title && description && content) {
         const updatedData = {
             title: title,
             description: description,
@@ -68,6 +87,7 @@ function UpdatePost() {
         })
         .catch((err) => console.error(err))
     }
+}
 
     const showModal = () => {
         setModalShown(true);
@@ -105,7 +125,24 @@ function UpdatePost() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="content">
                 <Form.Label>Content</Form.Label>
-                <Form.Control as="textarea" rows={3} value={content} onChange={ (e) => { setContent(e.target.value)} } required />
+                <Editor apiKey={apiKey}
+                onInit={(evt, editor) => editorRef.current = editor}
+                initialValue={initialContent}
+                init={{
+                    height: 500,
+                    menubar: true,
+                    plugins:
+                    'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+                    image_list: [
+                    {title: 'My image 1', value: 'https://www.example.com/my1.gif'},
+                    ],
+                    toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    }}
+                />
             </Form.Group>
             <Form.Group className="mb-3" controlId="tags">
                 <Form.Label>Tags</Form.Label>
@@ -113,10 +150,8 @@ function UpdatePost() {
             </Form.Group>
             </Form>
             <Link className="btn btn-primary" to="/">Cancel</Link>
-            <Button onClick={() => handleUpdatePost(id)} className="btn-secondary mx-2">Save</Button>
+            <Button onClick={(e) => handleUpdatePost(e, id)} className="btn-secondary mx-2">Save</Button>
             <Button className="btn btn-primary" onClick={showModal}>Delete</Button>
-            {/*  only show inside of modal */}
-            {/* <DeleteBtn id={id} adminToken={adminToken} /> */}
         </Container>
         </>
     )   
