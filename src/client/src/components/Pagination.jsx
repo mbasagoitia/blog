@@ -18,9 +18,6 @@ function PaginationControls ({ filteredPosts, setDisplayedPosts }) {
             while (allItems.length > 0) {
                 sortedItems.push(allItems.splice(0, 10));
             }
-
-            // Need to set initial display of first ten items
-
         
             for (let i = 1; i <= sortedItems.length; i++) {
                 paginationNums.push(<Pagination.Item key={i} active={i === active} onClick={() => {

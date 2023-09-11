@@ -174,8 +174,14 @@ a {
   font-size: 0.8rem;
 }
 
+.email, .github, .linkedin {
+  color: white;
+  transition: color 0.2s ease;
+}
+
 .email:hover, .github:hover, .linkedin:hover {
   color: #FF6B6B;
+  cursor: pointer;
 }
 
 @media (min-width: 500px) {

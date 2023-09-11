@@ -54,7 +54,7 @@ function Navigation ({ blogPosts, setFilteredPosts, setDisplayedPosts, setSearch
                     <NavDropdown.Item onClick={() => handleFilter("career switch, switch, career switching, switching")}>Switching Careers</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
-                <Filter blogPosts={blogPosts} setFilteredPosts={setFilteredPosts} filter={filter} setSearchTerms={setSearchTerms} />
+                <Filter setFilteredPosts={setFilteredPosts} filter={filter} setSearchTerms={setSearchTerms} />
                 </Navbar.Collapse>
             </Container>    
         </Navbar>

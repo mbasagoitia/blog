@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 
-function Filter ({ setDisplayedPosts, filter, setSearchTerms }) {
+function Filter ({ setFilteredPosts, filter, setSearchTerms }) {
 
     const [search, setSearch] = useState("");
     
     const handleSearch = (e) => {
         e.preventDefault();
         if (search) {
-            setDisplayedPosts(filter(search));
+            setFilteredPosts(filter(search));
             setSearchTerms(search);
         }
         return false;
