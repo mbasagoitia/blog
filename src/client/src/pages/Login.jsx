@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/Button';
 import BackBtn from "../components/BackBtn";
 import jwtDecode from "jwt-decode";
 
-                
-
 function Login ({ setUser }) {
 
     const navigate = useNavigate();

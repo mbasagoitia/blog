@@ -6,7 +6,7 @@ import Email from './Email';
 
 function Footer () {
     return (
-        <Navbar expand="sm" className="navbar-dark">
+        <Navbar id="footer" expand="sm" className="navbar-dark">
             <Container fluid className="d-flex" id="footer-container">
             <div className="copyright my-2">
                 <span className="nav-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F5F5F5" viewBox="0 0 16 16">

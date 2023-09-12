@@ -25,7 +25,6 @@ function Home({ user, setUser }) {
                 if (res.ok) {
                     const data = await res.json();
                     setBlogPosts(data);
-                    // Issue here?
                     setFilteredPosts(data);
                 } else {
                     console.error("Error fetching blog posts");
@@ -41,7 +40,7 @@ function Home({ user, setUser }) {
         <>
         <h1 className="text-center my-4" id="title">CodeCrafted Chronicles</h1>
             <Navigation blogPosts={blogPosts} setFilteredPosts={setFilteredPosts} setDisplayedPosts={setDisplayedPosts} setSearchTerms={setSearchTerms}/>
-                <Container fluid>
+                <Container fluid id="hp-container">
                 <Row>
                     <Col>
                         <div className="d-flex justify-content-between align-items-center mt-2">
@@ -60,7 +59,6 @@ function Home({ user, setUser }) {
                                 </> }
                             </div>
                         </div>
-                        { /* We are getting first 10, but after that getting all posts */ }
                 <PostsList displayedPosts={displayedPosts.length > 0 ? displayedPosts : filteredPosts } user={user} />
                 </Col>
             </Row>
@@ -74,6 +72,5 @@ function Home({ user, setUser }) {
         </>
     )
 }
-
 
 export default Home;

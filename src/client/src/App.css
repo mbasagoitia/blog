@@ -63,6 +63,10 @@ nav {
   max-width: 25vw;
 }
 
+#hp-container {
+  min-height: 63.5vh;
+}
+
 #filter-search-btn:hover {
   cursor: pointer;
 }
