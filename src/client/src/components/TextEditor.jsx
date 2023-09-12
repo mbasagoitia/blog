@@ -6,7 +6,7 @@ function TextEditor ({ apiKey, editorRef, initialValue }) {
             onInit={(evt, editor) => editorRef.current = editor}
             initialValue={initialValue}
             init={{
-                height: 500,
+                height: 350,
                 menubar: true,
                 plugins:
                 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',

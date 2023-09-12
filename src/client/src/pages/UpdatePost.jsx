@@ -86,7 +86,10 @@ function UpdatePost() {
             <FormFields title={title} setTitle={setTitle} description={description} setDescription={setDescription} editorRef={editorRef} initialValue={initialContent} tags={tags} setTags={setTags} />
             <Link className="btn btn-primary" to="/">Cancel</Link>
             <Button onClick={() => handleUpdatePost(id)} className="btn-secondary mx-2">Save</Button>
-            <Button className="btn btn-primary" onClick={() => setModalShown(true)}>Delete</Button>
+            <Button className="btn btn-primary" onClick={() => {
+                window.scrollTo(0, 0);
+                setModalShown(true);
+                }}>Delete</Button>
         </Container>
         </>
     )   

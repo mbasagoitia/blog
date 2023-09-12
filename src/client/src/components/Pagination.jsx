@@ -23,7 +23,7 @@ function PaginationControls ({ filteredPosts, setDisplayedPosts }) {
                 paginationNums.push(<Pagination.Item key={i} active={i === active} onClick={() => {
                     setActive(i);
                     setDisplayedPosts(sortedItems[i-1]);
-                    // Scroll user to top of page?
+                    window.scrollTo(0, 0);
                 }}>{i}</Pagination.Item>)
             }
         }
