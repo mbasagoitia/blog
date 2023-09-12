@@ -18,6 +18,8 @@ function Home({ user, setUser }) {
 
     useEffect(() => {
 
+        // Fetch a list of all existing blog posts
+
         const apiUrl = "http://localhost:8080/api/posts";
         const fetchBlogPosts = async () => {
             try {

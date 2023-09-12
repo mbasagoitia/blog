@@ -31,13 +31,15 @@ function Login ({ setUser }) {
             if (res.ok) {
                 console.log("login successful");
                 const data = await res.json();
-                const token = data.token;
 
+                // Token is retrieved from server and set to localStorage
+
+                const token = data.token;
                 localStorage.setItem("token", token);
 
                 const decodedToken = jwtDecode(token);
                 setUser(decodedToken.user);
-                window.dispatchEvent(new Event("userLogin"));
+                
                 navigate("/");
             } else {
                 console.error("Login failed")

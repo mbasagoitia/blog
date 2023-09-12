@@ -87,7 +87,6 @@ function UpdatePost() {
             <Link className="btn btn-primary" to="/">Cancel</Link>
             <Button onClick={() => handleUpdatePost(id)} className="btn-secondary mx-2">Save</Button>
             <Button className="btn btn-primary" onClick={() => {
-                window.scrollTo(0, 0);
                 setModalShown(true);
                 }}>Delete</Button>
         </Container>

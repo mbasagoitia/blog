@@ -12,27 +12,33 @@ import jwtDecode from "jwt-decode";
 function App() {
 
   const [user, setUser] = useState(null);
+
+  // If a user has previously logged in and been assigned a JSON Web Token, retrieve it from localStorage
+
   const token = localStorage.getItem("token");
 
   useEffect (() => {
     
-    const handleTokenChange = () => {
       if (token) {
         const decodedToken = jwtDecode(token);
         setUser(decodedToken.user);
   
         // Get token expiration time and current time
-        const { exp } = decodedToken;
+
+        const exp = decodedToken.exp*1000;
         const currentTime = Date.now();
-        const timeUntilExpiration = exp*1000 - currentTime;
+        const timeUntilExpiration = exp - currentTime;
         
         // If token is in localStorage, but has expired, automatically log user out
+
         if (exp < currentTime) {
           localStorage.removeItem("token");
           setUser(null);
         } 
         
-        // If token is in localStorage and has not yet expired, refresh the time until expiration
+        // If token is in localStorage and has not yet expired,
+        // set timeout function to log user out when timeUntilExpiration reaches 0
+
         if (timeUntilExpiration > 0) {
           setTimeout(() => {
             localStorage.removeItem("token");
@@ -40,13 +46,9 @@ function App() {
           }, timeUntilExpiration);
         }
       }
-    }
-    
-    window.addEventListener("userLogin", handleTokenChange);
 
-    return () => {
-      window.removeEventListener("userLogin", handleTokenChange);
-    }
+      // This useEffect will happen every time a user logs in (changing the token), effectively
+      // refreshing the token expiration time
     
   }, [token])
 

@@ -10,6 +10,8 @@ dotenv.config();
 const BlogPost = require("../models/BlogPost");
 const Comment = require("../models/Comment");
 
+// Retrieve API Key for TinyMCE
+
 router.get("/api-key", (req, res) => {
     const apiKey = process.env.API_KEY;
     if (!apiKey) {
@@ -28,20 +30,6 @@ router.get("/posts", async (req, res) => {
     }
 })
 
-router.get("/comments/:postId", async (req, res) => {
-    try {
-        const postId = req.params.postId;
-        const comments = await Comment.find({ post: postId }).populate("user").sort({ createdAt: "desc" }).exec();
-        if (!comments) {
-            res.status(200).json({ comments: [] });
-        }
-        res.status(200).json({ comments: [...comments] });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "An error occurred while fetching comments" });
-    }
-})
-
 router.get("/singlepost/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -53,6 +41,20 @@ router.get("/singlepost/:id", async (req, res) => {
     } catch(err) {
         console.error(err);
         res.status(500).json({ error: "An error occurred while fetching single post" })
+    }
+})
+
+router.get("/comments/:postId", async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const comments = await Comment.find({ post: postId }).populate("user").sort({ createdAt: "desc" }).exec();
+        if (!comments) {
+            res.status(200).json({ comments: [] });
+        }
+        res.status(200).json({ comments: [...comments] });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred while fetching comments" });
     }
 })
 
@@ -99,6 +101,7 @@ router.post("/comment", verifyToken, async (req, res) => {
             post,
             createdAt
         });
+
         const savedComment = await newComment.save();
         res.status(201).json(savedComment);
         }
@@ -157,6 +160,9 @@ router.delete("/delete/comment/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const comment = await Comment.findById({ _id: id });
+
+        // Only admins and users who created the comment can delete it
+
         if (req.userRole === "admin" || req.userId === comment.user.toString()) {   
             const deletedComment = await Comment.findByIdAndDelete({ _id: id });
         if (!deletedComment) {

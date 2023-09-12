@@ -12,6 +12,8 @@ function BlogPost({ user }) {
     const [commentCount, setCommentCount] = useState(0);
     const { id } = useParams();
 
+    // Fetch only the post whose id matches the id from useParams
+
     useEffect(() => {
         const apiUrl = `http://localhost:8080/api/singlepost/${id}`;
         const fetchSinglePost = async () => {

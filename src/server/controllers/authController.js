@@ -55,7 +55,6 @@ async function login (req, res) {
         if (!passwordMatch) {
             return res.status(401).json({ error: "Incorrect password" })
         }
-        // possible issues here
         const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: "1h" })
         res.status(200).json({ token });
     } catch (err) {
