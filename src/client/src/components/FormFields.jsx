@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/esm/Button";
+import BackBtn from "./BackBtn";
 import TextEditor from "../components/TextEditor";
 
-function FormFields ({ title, setTitle, description, setDescription, editorRef, initialValue, tags, setTags }) {
+function FormFields ({ title, setTitle, description, setDescription, editorRef, initialValue, tags, setTags, handleSubmit, id }) {
 
     const [apiKey, setApiKey] = useState("");
 
@@ -31,6 +33,8 @@ function FormFields ({ title, setTitle, description, setDescription, editorRef, 
                 <Form.Label>Tags</Form.Label>
                 <Form.Control type="text" placeholder="Ex: react, coding challenges, career" value={tags} onChange={ (e) => setTags(e.target.value) } required />
             </Form.Group>
+            <BackBtn />
+            <Button onClick={(e) => handleSubmit(e, id ? id : null)} type="submit" className="btn-secondary mb-2 mx-2">Save</Button>
         </Form>
     )
 }

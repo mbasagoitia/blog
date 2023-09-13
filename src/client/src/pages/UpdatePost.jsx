@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/esm/Container";
-import Button from "react-bootstrap/esm/Button";
 import Modal from "../components/Modal";
 import FormFields from "../components/FormFields";
 
@@ -40,8 +39,10 @@ function UpdatePost() {
         fetchSinglePost();
     }, [id]);
 
-    const handleUpdatePost = (id) => {
-        
+    const handleUpdatePost = (e, id) => {
+
+        e.preventDefault();
+
         const apiUrl = `http://localhost:8080/api/update/${id}`;
 
         if (editorRef.current) {
@@ -83,12 +84,10 @@ function UpdatePost() {
         ) : null}
         <Container className="mt-4">
         <h2>Edit Blog Post</h2>
-            <FormFields title={title} setTitle={setTitle} description={description} setDescription={setDescription} editorRef={editorRef} initialValue={initialContent} tags={tags} setTags={setTags} />
-            <Link className="btn btn-primary" to="/">Cancel</Link>
-            <Button onClick={() => handleUpdatePost(id)} className="btn-secondary mx-2">Save</Button>
-            <Button className="btn btn-primary" onClick={() => {
+            <FormFields title={title} setTitle={setTitle} description={description} setDescription={setDescription} editorRef={editorRef} initialValue={initialContent} tags={tags} setTags={setTags} handleSubmit={handleUpdatePost} id={id} />
+            <button className="btn btn-danger mb-2" onClick={() => {
                 setModalShown(true);
-                }}>Delete</Button>
+                }}>Delete</button>
         </Container>
         </>
     )   

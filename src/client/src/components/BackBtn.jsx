@@ -7,7 +7,7 @@ function BackBtn () {
     navigate(-1);
 }
 
-return <Button onClick={goBack} className="mb-2">Back</Button>;
+return <Button onClick={goBack} type="button" className="mb-2">Back</Button>;
 
 }
 

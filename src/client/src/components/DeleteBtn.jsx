@@ -1,4 +1,3 @@
-import Button from "react-bootstrap/esm/Button";
 import { useNavigate } from "react-router-dom";
 
 function DeleteBtn ({ type, id, commentCount, setCommentCount }) {
@@ -30,7 +29,7 @@ function DeleteBtn ({ type, id, commentCount, setCommentCount }) {
     }
 
     return (
-        <Button onClick={() => handleDelete(type, id)} >Delete</Button>
+        <button onClick={() => handleDelete(type, id)} className="btn btn-danger">Delete</button>
     )
 }
 

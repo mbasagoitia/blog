@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import BackBtn from "../components/BackBtn";
 import FormFields from "../components/FormFields";
 
@@ -17,7 +16,9 @@ function CreatePost({ user }) {
     const [content, setContent] = useState("");
     const [tags, setTags] = useState("");
 
-    const handleCreatePost = () => {
+    const handleCreatePost = (e) => {
+
+      e.preventDefault();
 
       if (editorRef.current) {
         let htmlContent = editorRef.current.getContent();
@@ -57,9 +58,7 @@ function CreatePost({ user }) {
         <>
         <Container className="mt-4">
         <h2>New Blog Post</h2>
-            <FormFields title={title} setTitle={setTitle} description={description} setDescription={setDescription} editorRef={editorRef} initialValue="" tags={tags} setTags={setTags} />
-            <BackBtn />
-            <Button onClick={() => handleCreatePost()} className="btn-secondary mb-2 mx-2">Save</Button>
+            <FormFields title={title} setTitle={setTitle} description={description} setDescription={setDescription} editorRef={editorRef} initialValue="" tags={tags} setTags={setTags} handleSubmit={handleCreatePost} />
         </Container>
         </>
     )
