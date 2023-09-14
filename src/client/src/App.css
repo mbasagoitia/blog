@@ -108,6 +108,10 @@ a {
   font-size: 1.5rem;
 }
 
+#post-comment {
+  font-size: 1.2rem;
+}
+
 .tox-editor-container {
   z-index: 1;
 }

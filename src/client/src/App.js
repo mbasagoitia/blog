@@ -37,7 +37,8 @@ function App() {
         } 
         
         // If token is in localStorage and has not yet expired,
-        // set timeout function to log user out when timeUntilExpiration reaches 0
+        // set timeout function to log user out when timeUntilExpiration reaches 0,
+        // refreshing the token expiration time
 
         if (timeUntilExpiration > 0) {
           setTimeout(() => {
@@ -47,8 +48,7 @@ function App() {
         }
       }
 
-      // This useEffect will happen every time a user logs in (changing the token), effectively
-      // refreshing the token expiration time
+      // This useEffect will happen every time a user logs in, changing the token
     
   }, [token])
 

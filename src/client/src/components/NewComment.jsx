@@ -40,7 +40,7 @@ function NewComment({ postId, user, commentCount, setCommentCount }) {
         <>
         {user ? (
             <>
-            <h2>Post a Comment</h2>
+            <h2 id="post-comment">Post a Comment</h2>
             <Form onSubmit={(e) => handleCreateComment(e)} className="mb-4">
             <Form.Group className="mb-3" controlId="Comment">
                 <Form.Label>{`@${user.username}`}</Form.Label>
